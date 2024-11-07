@@ -5,7 +5,7 @@ const Register = () => {
   return (
     <div>
       <Navbar/>
-      <div className="min-h-screen bg-darkGreen sm:rounded-lg flex justify-center flex-1">
+      <div className="min-h-screen bg-darkGreen flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-1/2 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
