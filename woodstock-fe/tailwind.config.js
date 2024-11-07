@@ -19,6 +19,8 @@ export default {
         lightGreen: '#E1FFCF',
         leafGreen: '#5B8844',
         darkGreen: '#3B5934',
+        black1: '#141414',
+        black2: '#171717',
       },
     },
   },
