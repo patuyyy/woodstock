@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/Logo.jsx';
+import Toggle from './Toggle.jsx';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,11 +9,6 @@ function Navbar() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-  };
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark', !isDarkMode);
   };
 
   // Set the initial theme based on the user's preference
@@ -24,20 +20,16 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-white dark:bg-black px-6 py-4 transition-all ease-in-out duration-500">
+    <nav className="bg-white1 dark:bg-darkwood px-6 py-4 transition-all ease-in-out duration-500">
       <div className="flex items-center justify-between">
-        <div className="flex items-center flex-wrap bg-darkwood dark:bg-black py-2 px-4 rounded-xl transition-all ease-in-out duration-500">
-          <Logo />
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center bg-darkwood py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
+            <Logo />
+          </div>
         </div>
 
         <div className="flex items-center space-x-4">
           {/* Dark mode toggle button */}
-          <button
-            onClick={toggleDarkMode}
-            className="text-black dark:text-white focus:outline-none"
-          >
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
 
           {/* Mobile menu toggle */}
           <div className="lg:hidden">
@@ -62,21 +54,22 @@ function Navbar() {
 
         {/* Desktop menu */}
         <div className="hidden lg:flex space-x-8 text-black dark:text-gray-300">
-          <Link to="/" className="hover:text-lightGreen dark:hover:text-lightBlue hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+          <Link to="/" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
             Home
           </Link>
-          <Link to="/about" className="hover:text-lightGreen dark:hover:text-lightBlue hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+          <Link to="/about" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
             About
           </Link>
-          <Link to="/services" className="hover:text-lightGreen dark:hover:text-lightBlue hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+          <Link to="/services" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
             Services
           </Link>
-          <Link to="/contact" className="hover:text-lightGreen dark:hover:text-lightBlue hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+          <Link to="/contact" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
             Contact
           </Link>
-          <Link to="/register" className="hover:text-darkwood dark:hover:text-lightBlue hover:scale-110 transition-all duration-500 bg-lightOrange dark:bg-darkOrange p-2 rounded-xl hover:bg-darkOrange dark:hover:bg-lightBlue font-title text-xl">
+          <Link to="/register" className="dark:hover:text-darkwood hover:text-lightGreen hover:scale-110 transition-all duration-500 bg-lightOrange dark:bg-darkOrange p-2 rounded-xl hover:bg-darkOrange dark:hover:bg-lightBlue font-title text-xl">
             Register
           </Link>
+          <Toggle />
         </div>
       </div>
 

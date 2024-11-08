@@ -22,6 +22,9 @@ export default {
         darkGreen: '#3B5934',
         black1: '#141414',
         black2: '#171717',
+        black3: '#505050',
+        white1: '#DDDDDD',
+        white2: '#EEEEEE'
       },
     },
   },

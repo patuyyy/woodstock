@@ -53,11 +53,11 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-      <section className="bg-black2">
+      <section className="bg-white2 dark:bg-black2 transition-all duration-500">
         <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-12">
           <div className=" items-center lg:col-span-full justify-center">
             <div className="mr-auto place-self-center lg:col-span-7">
-              <h1 className="max-w-2xl mb-4 text-3xl text-lightGreen font-title leading-none tracking-tight md:text-2xl xl:text-4xl">
+              <h1 className="max-w-2xl mb-4 text-3xl bg-black dark:bg-black2 inline-block px-4 py2 rounded-xl text-lightGreen font-title leading-none tracking-tight md:text-2xl xl:text-4xl transition-all duration-500">
                 Our Goals
               </h1>
             </div>
