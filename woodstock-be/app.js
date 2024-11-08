@@ -18,16 +18,13 @@ db.connect((err) => {
     console.error(err.message);
     return;
   }
-  console.log("Connected to database bro");
+  console.log("Connected to database");
 });
 
 /* API Endpoints */
-// const EventsRouter = require("./routes/events.routes");
-// const RequestRouter = require("./routes/request.routes");
-// const UsersRouter = require("./routes/users.routes");
+const UsersRouter = require("./routes/users.route");
 
-// app.use("/api/events", EventsRouter);
-// app.use("/api/request", RequestRouter);
-// app.use("/api/users", UsersRouter);
+
+app.use("/api/users", UsersRouter);
 
 module.exports = app;

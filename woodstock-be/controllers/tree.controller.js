@@ -1,7 +1,6 @@
 const { db } = require("../config/db.config");
 const bcrypt = require("bcrypt");
 const { buildResp, cleanStr } = require("../utils/utils");
-const { use } = require("../routes/request.routes");
 
 class TreeController {
   async getAll(req, res) {
