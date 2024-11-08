@@ -13,11 +13,14 @@ export default {
         title:["Koulen", "sans-serif"]
       },
       colors: {
-        darkwood: '#0F0A01',
+        darkWood: '#0F0A01',
+        lightBrown: '#563B14',
         lightOrange: '#B86822',
         darkOrange: '#8B380C',
+        pastelYellow: '#FEFFD7',
         lightGreen: '#E1FFCF',
         leafGreen: '#5B8844',
+        beigeGreen: '#67795C',
         darkGreen: '#3B5934',
         black1: '#141414',
         black2: '#171717',

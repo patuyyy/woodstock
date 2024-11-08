@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 const Register = () => {
@@ -61,9 +62,9 @@ const Register = () => {
                 </button>
                 <p className="mt-6 text-xs text-white text-center">
                   Already have an account?{" "}
-                  <a href="">
+                  <Link to="/login">
                     <span className="text-white font-semibold">Sign in</span>
-                  </a>
+                    </Link>
                 </p>
               </div>
             </div>
