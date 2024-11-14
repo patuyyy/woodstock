@@ -88,6 +88,7 @@ function Navbar() {
           <Link to="/contact" className="block hover:text-gray-400 dark:hover:text-gray-500 transition-colors duration-200">
             Contact
           </Link>
+          <Toggle className="justify-start mr-4"/>
         </div>
       )}
     </nav>

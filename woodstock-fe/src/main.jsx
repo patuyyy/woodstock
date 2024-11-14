@@ -5,6 +5,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
+import Marketplace from './pages/Marketplace.jsx';
 
 
 // Create a root element
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     path: "login",
     element: <Login/>
   },
+  {
+    path: "marketplace",
+    element:<Marketplace/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
