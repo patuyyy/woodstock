@@ -1,9 +1,8 @@
 const { Router } = require("express");
 const TreeController = require("../controllers/tree.controller");
-//const validateUser = require("../middleware/tree.middleware");
 
 const TreeRouter = Router();
-const Tree = new UsersController();
+const Tree = new TreeController();
 
 // GET ROUTES
 TreeRouter.get("/", Tree.getAll);

@@ -1,13 +1,50 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Navbar from '../components/Navbar';
 import WoodStockLogo from '../assets/WoodStockLogo';
+import { userLogin } from '../actions/userAction';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setError('Please fill out all fields.');
+      return;
+    }
+
+    const formData = { username, password };
+
+    try {
+      const response = await userLogin(formData);
+
+      if (response.success) {
+        setSuccess(true);
+        setError(null);
+        setTimeout(() => {
+          navigate('/marketplace');
+        }, 1000);
+      } else {
+        setError('Failed to login.');
+        setSuccess(false);
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+      setSuccess(false);
+    }
+  };
+
   return (
     <div>
       <Navbar />
 
-      <div className="min-h-screen bg-darkGreen sm:rounded-lg flex justify-center flex-1">
+      <div className="min-h-screen bg-darkGreen flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-1/2 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
@@ -25,19 +62,31 @@ const Login = () => {
                 Welcome back! Please login to your account.
               </p>
             </div>
+
             <div className="w-full flex-1 mt-8">
               <div className="max-w-xs lg:max-w-lg flex flex-col gap-4">
                 <input
-                  className="w-full font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
-                  type="email"
-                  placeholder="Enter your email"
+                  className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
+                  type="username"
+                  value={username}
+                  placeholder="Enter your username"
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
-                  className="w-full font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
+                  className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
                   type="password"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className="mt-5 tracking-wide font-semibold bg-leafGreen text-gray-100 w-full lg:min-w-fi py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+
+                {error && <p className="text-red-500 mt-2">{error}</p>}
+                {success && <p className="text-green-500 mt-2">Login successfull! Redirecting...</p>}
+                
+                <button 
+                  className="mt-5 tracking-wide font-semibold bg-leafGreen text-gray-100 w-full lg:min-w-fi py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  onClick={handleSubmit}
+                >
                   <svg
                     className="w-6 h-6 -ml-2"
                     fill="none"

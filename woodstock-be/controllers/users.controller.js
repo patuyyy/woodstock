@@ -1,11 +1,11 @@
-const { db } = require("../config/db.config");
+const db = require('../connector');
 const bcrypt = require("bcrypt");
 const { buildResp, cleanStr } = require("../utils/utils");
 
 class UsersController {
   async getAll(req, res) {
     try {
-      const users = await db.query("SELECT * FROM users;");
+      const users = await db.pool.query("SELECT * FROM Account;");
       res
         .status(200)
         .send(buildResp("Users retrieved successfully", users.rows));
@@ -18,7 +18,7 @@ class UsersController {
   async getById(req, res) {
     const { user_id } = req.params;
     try {
-      const user = await db.query(
+      const user = await db.pool(
         `SELECT * FROM users WHERE user_id = ${user_id};`
       );
       const msg =
@@ -39,70 +39,69 @@ class UsersController {
   }
 
   async register(req, res) {
-    const { name, username, password } = req.body;
-    if (!name || !username || !password) {
-      res.status(400).send(buildResp("Missing required fields"));
-      return;
+    const { email, username, password, phone } = req.body;
+    
+    // Check for missing fields
+    if (!email || !username || !password || !phone) {
+      return res.status(400).send(buildResp("Missing required fields"));
     }
-
+  
     try {
       // Hash password
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      const user = await db.query(
-        `INSERT INTO users (name, username, password) 
-            VALUES ('${name}', '${username}', '${hashedPassword}') 
-            RETURNING *;`
+  
+      // Insert user into the database
+      const result = await db.pool.query(
+        `INSERT INTO account (email, username, phone, password) 
+        VALUES ($1, $2, $3, $4) 
+        RETURNING *;`,
+        [email, username, phone, hashedPassword]
       );
-      res
-        .status(200)
-        .send(buildResp("User created successfully", user.rows[0]));
+  
+      // Send success response with the created user
+      res.status(200).send(buildResp("User created successfully", result.rows[0]));
     } catch (err) {
       console.error(err.message);
-      return;
+      res.status(500).send(buildResp("Error creating user", err.message));
     }
   }
+  
 
   async login(req, res) {
     const { username, password } = req.body;
+    
     if (!username || !password) {
-      res
-        .status(400)
-        .send(buildResp("Missing required fields", { login: false }, false));
-      return;
+      return res.status(400).send(buildResp("Missing required fields", { login: false }, false));
     }
-
+  
     try {
-      const user = await db.query(
-        `SELECT * FROM users WHERE username = '${username}';`
+      const { rows } = await db.pool.query(
+        `SELECT * FROM account WHERE username = $1;`,
+        [username]
       );
-      if (user.rows.length === 0) {
-        res
-          .status(400)
-          .send(buildResp("User not found", { login: false }, false));
-        return;
+  
+      if (rows.length === 0) {
+        return res.status(400).send(buildResp("User not found", { login: false }, false));
       }
-
-      const match = await bcrypt.compare(password, user.rows[0].password);
+  
+      const match = await bcrypt.compare(password, rows[0].password);
       if (!match) {
-        res
-          .status(400)
-          .send(buildResp("Incorrect password", { login: false }, false));
-        return;
+        return res.status(400).send(buildResp("Incorrect password", { login: false }, false));
       }
-
-      res.status(200).send(buildResp("Login successful", user.rows[0]));
+  
+      res.status(200).send(buildResp("Login successful", rows[0]));
     } catch (err) {
       console.error(err.message);
-      return;
+      res.status(500).send(buildResp("Error logging in", { login: false }, false));
     }
   }
+  
 
   async deleteById(req, res) {
     const { user_id } = req.params;
     try {
-      const user = await db.query(
+      const user = await db.pool(
         `DELETE FROM users WHERE user_id = ${user_id} RETURNING *;`
       );
       const msg =

@@ -1,8 +1,7 @@
-const { Router } = require("express");
+const express = require("express");
 const UsersController = require("../controllers/users.controller");
-//const validateUser = require("../middleware/users.middleware");
 
-const UsersRouter = Router();
+const UsersRouter = express.Router();
 const Users = new UsersController();
 
 // GET ROUTES

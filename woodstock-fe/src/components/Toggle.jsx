@@ -16,7 +16,7 @@ function Toggle (){
   }, []);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-start">
       <div
         onClick={toggleDarkMode}
         className={`w-14 h-8 flex items-center bg-gray-500 dark:bg-black3 rounded-full p-1 cursor-pointer transition-all duration-700 ${
