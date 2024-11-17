@@ -29,6 +29,7 @@ export default {
     },
   },
   plugins: [
+    require('tailwindcss-text-stroke'),
     function ({ addUtilities }) {
       addUtilities({
         '.text-shadow': {

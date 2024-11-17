@@ -45,7 +45,7 @@ const Login = () => {
       <Navbar />
 
       <div className="min-h-screen bg-darkGreen flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-1/2 p-6 sm:p-12">
+        <div className="lg:w-1/2 xl:w-7/12 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
               <h1
@@ -64,7 +64,7 @@ const Login = () => {
             </div>
 
             <div className="w-full flex-1 mt-8">
-              <div className="max-w-xs lg:max-w-lg flex flex-col gap-4">
+              <div className="max-w-xs lg:max-w-screen-md flex flex-col gap-4">
                 <input
                   className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
                   type="username"
@@ -87,19 +87,6 @@ const Login = () => {
                   className="mt-5 tracking-wide font-semibold bg-leafGreen text-gray-100 w-full lg:min-w-fi py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   onClick={handleSubmit}
                 >
-                  <svg
-                    className="w-6 h-6 -ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                    <circle cx="8.5" cy="7" r="4" />
-                    <path d="M20 8v6M23 11h-6" />
-                  </svg>
                   <span className="ml-3">Login</span>
                 </button>
                 <p className="mt-6 text-xs text-white text-center">
