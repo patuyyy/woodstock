@@ -39,10 +39,10 @@ class UsersController {
   }
 
   async register(req, res) {
-    const { email, username, password, phone } = req.body;
+    const { email, username, password, phone, photo} = req.body;
     
     // Check for missing fields
-    if (!email || !username || !password || !phone) {
+    if (!email || !username || !password || !phone || !photo) {
       return res.status(400).send(buildResp("Missing required fields"));
     }
   
@@ -53,10 +53,10 @@ class UsersController {
   
       // Insert user into the database
       const result = await db.pool.query(
-        `INSERT INTO account (email, username, phone, password) 
-        VALUES ($1, $2, $3, $4) 
+        `INSERT INTO account (email, username, phone, password, photo) 
+        VALUES ($1, $2, $3, $4, $5) 
         RETURNING *;`,
-        [email, username, phone, hashedPassword]
+        [email, username, phone, hashedPassword, photo]
       );
   
       // Send success response with the created user
