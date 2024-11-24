@@ -1,43 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
 
-/* Custom text shadow */
-.text-outline {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adjust values for effect */
-  }
-
-/* Add to your CSS file */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOut {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-}
-
-.slide-in {
-  animation: slideIn 0.5s ease-out forwards;
-}
-
-.slide-out {
-  animation: slideOut 0.5s ease-out forwards;
-}
-
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

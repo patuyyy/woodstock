@@ -23,12 +23,14 @@ const Login = () => {
 
     try {
       const response = await userLogin(formData);
-
+    
       if (response.success) {
+        console.log(response);
         setSuccess(true);
         setError({});
+        localStorage.setItem('userInfo', JSON.stringify(response.data)); // Save user info
         setTimeout(() => {
-          navigate('/marketplace');
+        navigate('/marketplace');
         }, 1000);
       } else {
         setError({ general: response.message });
@@ -38,6 +40,7 @@ const Login = () => {
       setError({ general: 'Something went wrong. Please try again.' });
       setSuccess(false);
     }
+    
   };
 
   return (
@@ -103,12 +106,6 @@ const Login = () => {
 
         <div className="flex-1 bg-black text-center text-white relative hidden md:flex">
           <a href="/register" className="absolute top-4 left-4 flex items-center gap-2 text-lightGreen font-bold">
-            <div className="w-10 h-10 flex items-center justify-center">
-              <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="27.5" cy="27.5" r="27.5" fill="#B86822"/>
-                <path d="M37.388 16.2404C37.2207 15.1486 36.1999 14.3991 35.1081 14.5665L17.3159 17.2938C16.2241 17.4612 15.4747 18.4819 15.642 19.5737C15.8094 20.6655 16.8302 21.415 17.922 21.2476L33.7373 18.8234L36.1615 34.6386C36.3289 35.7305 37.3496 36.4799 38.4415 36.3125C39.5333 36.1452 40.2827 35.1244 40.1153 34.0326L37.388 16.2404ZM20.201 40.6402L37.0233 17.727L33.799 15.3598L16.9767 38.2729L20.201 40.6402Z" fill="black"/>
-              </svg>
-            </div>
             REGISTER
           </a>
 

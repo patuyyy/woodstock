@@ -88,28 +88,32 @@ class UsersController {
     if (!username || !password) {
       return res.status(400).send(buildResp("Missing required fields", { login: false }, false));
     }
-  
+
     try {
       const { rows } = await db.pool.query(
         `SELECT * FROM account WHERE username = $1;`,
         [username]
       );
-  
+
       if (rows.length === 0) {
         return res.status(400).send(buildResp("User not found", { login: false }, false));
       }
-  
+
       const match = await bcrypt.compare(password, rows[0].password);
       if (!match) {
         return res.status(400).send(buildResp("Incorrect password", { login: false }, false));
       }
-  
-      res.status(200).send(buildResp("Login successful", rows[0]));
+
+      // Exclude password from the response
+      const { password: _, ...userWithoutPassword } = rows[0];
+
+      res.status(200).send(buildResp("Login successful", userWithoutPassword));
     } catch (err) {
       console.error(err.message);
       res.status(500).send(buildResp("Error logging in", { login: false }, false));
     }
-  }
+}
+
   
 
   async deleteById(req, res) {

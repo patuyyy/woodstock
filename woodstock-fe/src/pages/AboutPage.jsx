@@ -35,7 +35,7 @@ const AboutPage = () => {
                 Our Goals
               </h1>
             </div>
-            <h1 className="text-white text-xl">
+            <h1 className="dark:text-white text-xl text-black">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
                 Sed nisi. Nulla quis sem at nibh elementum imperdiet.

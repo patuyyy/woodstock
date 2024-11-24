@@ -11,13 +11,6 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
   return (
     <nav className="bg-white1 dark:bg-darkwood px-6 py-4 transition-all ease-in-out duration-500">
       <div className="flex items-center justify-between">

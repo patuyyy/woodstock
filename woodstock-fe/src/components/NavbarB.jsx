@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo.jsx';
 import Toggle from './Toggle.jsx';
 
 function NavbarB() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const navigate = useNavigate();
 
-  // Set the initial theme based on the user's preference
   useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
+    const userInfo = localStorage.getItem('userInfo');
+
+    if (userInfo === null) {
+      // Redirect to login if userInfo is not in localStorage
+      navigate('/login');
     }
-  }, []);
+  }, [navigate]);
+
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   return (
     <nav className="bg-white1 dark:bg-darkwood px-6 py-4 transition-all ease-in-out duration-500">
@@ -21,6 +25,7 @@ function NavbarB() {
           <div className="flex items-center bg-darkwood py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
             <Logo />
           </div>
+          <Toggle />
         </div>
 
         {/* Search Bar */}
@@ -32,11 +37,16 @@ function NavbarB() {
           />
         </div>
 
-        {/* Toggle and User Profile */}
-        <div className="flex items-center space-x-4">
-          <Toggle />
-          <div className="w-8 h-8 rounded-full bg-gray-400 dark:bg-gray-600 cursor-pointer"></div>
-        </div>
+        {/* User Info */}
+        {userInfo && (
+          <div className="flex items-center space-x-4">
+            <div className="text-xl text-black dark:text-white">{userInfo.username}</div>
+            <div
+              className="w-8 h-8 rounded-full bg-cover bg-center cursor-pointer"
+              style={{ backgroundImage: `url(${userInfo.photo})` }}
+            ></div>
+          </div>
+        )}
       </div>
     </nav>
   );
