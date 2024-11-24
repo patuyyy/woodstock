@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import WoodStockLogo from '../assets/WoodStockLogo';
 import { userLogin } from '../actions/userAction';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({});
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
 
     if (!username || !password) {
-      setError('Please fill out all fields.');
+      setError({ general: 'Please fill out all fields.' });
       return;
     }
 
@@ -26,16 +26,16 @@ const Login = () => {
 
       if (response.success) {
         setSuccess(true);
-        setError(null);
+        setError({});
         setTimeout(() => {
           navigate('/marketplace');
         }, 1000);
       } else {
-        setError('Failed to login.');
+        setError({ general: response.message });
         setSuccess(false);
       }
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError({ general: 'Something went wrong. Please try again.' });
       setSuccess(false);
     }
   };
@@ -67,9 +67,10 @@ const Login = () => {
               <div className="max-w-xs lg:max-w-screen-md flex flex-col gap-4">
                 <input
                   className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
-                  type="username"
-                  value={username}
+                  type="text"
                   placeholder="Enter your username"
+                  value={username}
+
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
@@ -80,10 +81,10 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
 
-                {error && <p className="text-red-500 mt-2">{error}</p>}
-                {success && <p className="text-green-500 mt-2">Login successfull! Redirecting...</p>}
+                {error.general && <p className="text-red-400 mt-2">{error.general}</p>}
+                {success && <p className="text-green-500 mt-2">Login successful! Redirecting...</p>}
                 
-                <button 
+                <button
                   className="mt-5 tracking-wide font-semibold bg-leafGreen text-gray-100 w-full lg:min-w-fi py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   onClick={handleSubmit}
                 >

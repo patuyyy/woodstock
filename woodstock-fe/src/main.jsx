@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import Marketplace from './pages/Marketplace.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 
 
 // Create a root element
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "marketplace",
     element:<Marketplace/>
+  },
+  {
+    path: "about",
+    element:<AboutPage/>
   }
 ]);
 

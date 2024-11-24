@@ -11,7 +11,6 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  // Set the initial theme based on the user's preference
   useEffect(() => {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setIsDarkMode(true);
@@ -23,15 +22,12 @@ function Navbar() {
     <nav className="bg-white1 dark:bg-darkwood px-6 py-4 transition-all ease-in-out duration-500">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <div className="flex items-center bg-darkwood py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
+          <Link to="/" className="flex items-center bg-darkwood py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
             <Logo />
-          </div>
+          </Link>
         </div>
 
         <div className="flex items-center space-x-4">
-          {/* Dark mode toggle button */}
-
-          {/* Mobile menu toggle */}
           <div className="lg:hidden">
             <button onClick={toggleMenu} className="text-white dark:text-gray-300 focus:outline-none">
               <svg
@@ -68,6 +64,12 @@ function Navbar() {
           </Link>
           <Link to="/register" className="dark:hover:text-darkwood hover:text-lightGreen hover:scale-110 transition-all duration-500 bg-lightOrange dark:bg-darkOrange p-2 rounded-xl hover:bg-darkOrange dark:hover:bg-lightBlue font-title text-xl">
             Register
+          </Link>
+          <p className='py-2 font-title text-xl'>
+            or
+          </p>
+          <Link to="/login" className="dark:hover:text-darkwood hover:text-lightGreen hover:scale-110 transition-all duration-500 bg-lightOrange dark:bg-darkOrange p-2 px-4 rounded-xl hover:bg-darkOrange dark:hover:bg-lightBlue font-title text-xl">
+            Login
           </Link>
           <Toggle />
         </div>

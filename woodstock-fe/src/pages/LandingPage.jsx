@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import LogoRaw from "../assets/LogoRaw";
+import { Link } from 'react-router-dom';
+
 
 const LandingPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState("slide-in");
 
   const goals = [
-    "Provide high-quality wood",
-    "Support sustainable forestry",
-    "Offer diverse wood types",
+    "Lorem ipsum dolor sit amet",
+    "consectetuer adipiscing elit",
+    "Maecenas porttitor congue massa.",
     "Ensure customer satisfaction",
-    "Innovate in wood processing",
+    "Fusce posuere, magna sed pulvinar ultricies",
   ];
 
   const maxItems = 3;
@@ -38,15 +40,15 @@ const LandingPage = () => {
               Welcome to
           </h1>
           <h1>
-              <span className="text-lightGreen bg-black dark:bg-black1 px-2 rounded-xl dark:text-lightOrange text-9xl font-extrabold font-title text-outline inline-block transition-all ease-in-out duration-500">WOOD</span>
+              <span className="text-lightGreen bg-black4 dark:bg-black1 px-2 rounded-xl dark:text-lightOrange text-9xl font-extrabold font-title text-outline inline-block transition-all ease-in-out duration-500">WOOD</span>
               <span className="text-lightOrange dark:text-lightGreen text-9xl font-extrabold font-title text-outline transition-all ease-in-out duration-500">STOCK</span>
           </h1>
             <p className="max-w-2xl mb-6 text-black font-light lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
             </p>
-            <p className="bg-lightOrange px-4 py-2 text-2xl hover:scale-105 transition-all duration-300 hover:text-lightGreen rounded-xl inline-block font-title text-white">
+            <Link to="/register" className="bg-lightOrange px-4 py-2 text-2xl hover:scale-105 transition-all duration-300 hover:text-lightGreen rounded-xl inline-block font-title text-white">
               Get Started
-            </p>
+            </Link>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex items-center justify-center">
               <LogoRaw/>

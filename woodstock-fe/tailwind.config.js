@@ -26,6 +26,7 @@ export default {
         black1: '#141414',
         black2: '#171717',
         black3: '#505050',
+        black4: '#202020',
         white1: '#DDDDDD',
         white2: '#EEEEEE',
         brokenWhite: '#FEFFE0'

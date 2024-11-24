@@ -74,16 +74,17 @@ const Register = () => {
     }
 
     try {
-      let photoUrl = null;
+      let photoUrl = 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png';
 
       if (photo) {
+        // If a photo is uploaded, process the upload
         photoUrl = await handlePhotoUpload(photo);
-      } else {
-        setError({ photo: 'Please upload a photo.' });
-        return;
       }
 
+      // Prepare the form data with the (optional) photo
       const formData = { email, username, phone, password, photo: photoUrl };
+
+      // Send the signup request to the backend
       const response = await userSignUp(formData);
 
       if (response.success) {
@@ -93,7 +94,7 @@ const Register = () => {
           navigate('/login');
         }, 1000);
       } else {
-        setError({ general: 'Failed to create account.' });
+        setError({ general: response.message }); // Display the message from the backend
         setSuccess(false);
       }
     } catch (err) {
@@ -160,7 +161,7 @@ const Register = () => {
                   {isUploading && <p className="text-yellow-500 mt-2">Uploading photo...</p>}
                 </div>
 
-                {error.general && <p className="text-red-500 mt-2">{error.general}</p>}
+                {error.general && <p className="text-red-400 font-title mt-2">{error.general}</p>}
                 {success && <p className="text-green-500 mt-2">Account created successfully! Redirecting...</p>}
 
                 <button

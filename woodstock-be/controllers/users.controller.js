@@ -50,6 +50,20 @@ class UsersController {
       // Hash password
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const checkUser = await db.pool.query(
+        `SELECT * FROM account WHERE username = $1;`,
+        [username]
+      );
+      if (checkUser.rowCount > 0) {
+        return res.status(409).send(buildResp("Username already exists"));
+      }
+      const checkEmail = await db.pool.query(
+        `SELECT * FROM account WHERE email = $1;`,
+        [email]
+      );
+      if (checkEmail.rowCount > 0) {
+        return res.status(409).send(buildResp("! Email already exists"));
+      }
   
       // Insert user into the database
       const result = await db.pool.query(
