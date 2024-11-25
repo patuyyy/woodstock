@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import WoodStockLogo from '../assets/WoodStockLogo';
 import { userLogin } from '../actions/userAction';
 import { useNavigate } from 'react-router-dom';
+import RedirectLogo from '../assets/RedirectLogo';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -23,14 +24,12 @@ const Login = () => {
 
     try {
       const response = await userLogin(formData);
-    
+
       if (response.success) {
-        console.log(response);
         setSuccess(true);
         setError({});
-        localStorage.setItem('userInfo', JSON.stringify(response.data)); // Save user info
         setTimeout(() => {
-        navigate('/marketplace');
+          navigate('/marketplace');
         }, 1000);
       } else {
         setError({ general: response.message });
@@ -40,7 +39,6 @@ const Login = () => {
       setError({ general: 'Something went wrong. Please try again.' });
       setSuccess(false);
     }
-    
   };
 
   return (
@@ -106,6 +104,9 @@ const Login = () => {
 
         <div className="flex-1 bg-black text-center text-white relative hidden md:flex">
           <a href="/register" className="absolute top-4 left-4 flex items-center gap-2 text-lightGreen font-bold">
+            <div className="w-10 h-10 flex items-center justify-center">
+              <RedirectLogo/>
+            </div>
             REGISTER
           </a>
 
@@ -117,5 +118,6 @@ const Login = () => {
     </div>
   );
 };
+
 
 export default Login;
