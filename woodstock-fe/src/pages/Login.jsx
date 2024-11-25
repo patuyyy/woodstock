@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import WoodStockLogo from '../assets/WoodStockLogo';
 import { userLogin } from '../actions/userAction';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RedirectLogo from '../assets/RedirectLogo';
 
 const Login = () => {
@@ -24,12 +24,14 @@ const Login = () => {
 
     try {
       const response = await userLogin(formData);
-
+    
       if (response.success) {
+        console.log(response);
         setSuccess(true);
         setError({});
+        localStorage.setItem('userInfo', JSON.stringify(response.data)); // Save user info
         setTimeout(() => {
-          navigate('/marketplace');
+        navigate('/marketplace');
         }, 1000);
       } else {
         setError({ general: response.message });
@@ -39,25 +41,26 @@ const Login = () => {
       setError({ general: 'Something went wrong. Please try again.' });
       setSuccess(false);
     }
+    
   };
 
   return (
     <div>
       <Navbar />
 
-      <div className="min-h-screen bg-darkGreen flex justify-center flex-1">
+      <div className="min-h-screen bg-leafGreen dark:bg-black1 flex justify-center flex-1 transition-all duration-500">
         <div className="lg:w-1/2 xl:w-7/12 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
               <h1
-                className="text-4xl xl:text-7xl font-bold font-title text-lightGreen"
+                className="text-4xl xl:text-7xl font-title text-lightGreen dark:text-white2"
                 style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}
               >
                 Login
               </h1>
 
               <p
-                className="text-2xl xl:text-2xl font-title text-lightGreen"
+                className="text-2xl xl:text-2xl font-title text-lightGreen dark:text-white2"
                 style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}
               >
                 Welcome back! Please login to your account.
@@ -103,21 +106,19 @@ const Login = () => {
         </div>
 
         <div className="flex-1 bg-black text-center text-white relative hidden md:flex">
-          <a href="/register" className="absolute top-4 left-4 flex items-center gap-2 text-lightGreen font-bold">
-            <div className="w-10 h-10 flex items-center justify-center">
-              <RedirectLogo/>
+            <div className="flex-1 bg-white dark:bg-black text-black dark:text-white text-center relative hidden md:flex transition-all duration-500 ease-in-out">
+              <Link to="/register" className="absolute top-4 left-4 flex items-center gap-2 text-black dark:text-lightGreen font-bold">
+                <RedirectLogo className="w-10 h-10" />
+                REGISTER
+              </Link>
+              <div className="m-12 xl:m-16 w-full bg-contain bg-center flex items-center justify-center bg-no-repeat">
+                <WoodStockLogo />
+              </div>
             </div>
-            REGISTER
-          </a>
-
-          <div className="m-12 xl:m-16 w-full bg-contain bg-center flex items-center justify-center bg-no-repeat">
-            <WoodStockLogo/>
-          </div>
         </div>
       </div>
     </div>
   );
 };
-
 
 export default Login;

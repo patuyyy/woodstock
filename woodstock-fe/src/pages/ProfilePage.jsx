@@ -1,10 +1,10 @@
 import React from 'react';
+import NavbarB from '../components/NavbarB';
 
 const ProfilePage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
-      {/* Navbar */}
-
+      <NavbarB/>
       {/* Profile Section */}
       <section className="bg-gray-200 dark:bg-gray-800 text-center py-8">
         <h2 className="text-2xl font-bold mb-4">My Profile</h2>
