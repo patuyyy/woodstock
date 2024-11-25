@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo.jsx';
 import Toggle from './Toggle.jsx';
 
@@ -20,11 +20,10 @@ function NavbarB() {
   return (
     <nav className="bg-white1 dark:bg-darkwood px-6 py-4 transition-all ease-in-out duration-500">
       <div className="flex items-center justify-between">
-        {/* Logo */}
         <div className="flex items-center space-x-4">
-          <div className="flex items-center bg-darkwood py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
+          <Link to='/marketplace' className="flex items-center bg-darkwood py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
             <Logo />
-          </div>
+          </Link>
           <Toggle />
         </div>
 
@@ -40,11 +39,12 @@ function NavbarB() {
         {/* User Info */}
         {userInfo && (
           <div className="flex items-center space-x-4">
-            <div className="text-xl text-black dark:text-white">{userInfo.username}</div>
-            <div
+            <Link to='/profile' className="text-xl text-black dark:text-white">{userInfo.username}</Link>
+            <Link
+              to='/profile'
               className="w-8 h-8 rounded-full bg-cover bg-center cursor-pointer"
               style={{ backgroundImage: `url(${userInfo.photo})` }}
-            ></div>
+            ></Link>
           </div>
         )}
       </div>

@@ -40,7 +40,7 @@ const LandingPage = () => {
               Welcome to
           </h1>
           <h1>
-              <span className="text-lightGreen bg-black4 dark:bg-black1 px-2 rounded-xl dark:text-lightOrange text-9xl font-extrabold font-title text-outline inline-block transition-all ease-in-out duration-500">WOOD</span>
+              <span className="text-lightGreen bg-black4 dark:bg-black1 px-3 mr-1 dark:mr-0 dark:px-0 rounded-xl dark:text-lightOrange text-9xl font-extrabold font-title text-outline inline-block transition-all ease-in-out duration-1000">WOOD</span>
               <span className="text-lightOrange dark:text-lightGreen text-9xl font-extrabold font-title text-outline transition-all ease-in-out duration-500">STOCK</span>
           </h1>
             <p className="max-w-2xl mb-6 text-black font-light lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">

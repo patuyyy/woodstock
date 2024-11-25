@@ -7,6 +7,7 @@ import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import Marketplace from './pages/Marketplace.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 
 // Create a root element
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "about",
     element:<AboutPage/>
+  },
+  {
+    path: "profile",
+    element: <ProfilePage/>
   }
 ]);
 

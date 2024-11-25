@@ -106,12 +106,12 @@ const Register = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen bg-leafGreen dark:bg-darkGreen flex justify-center flex-1 transition-all duration-500">
+      <div className="min-h-screen bg-leafGreen dark:bg-black1 flex justify-center flex-1 transition-all duration-500">
         <div className="lg:w-4/6 xl:w-7/12 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
-              <h1 className="text-4xl xl:text-7xl font-bold font-title text-lightGreen">Register</h1>
-              <p className="text-2xl xl:text-2xl font-title text-lightGreen">Register your account!</p>
+              <h1 className="text-4xl xl:text-7xl font-title text-white1">Register</h1>
+              <p className="text-2xl xl:text-2xl font-title text-white1">Register your account!</p>
             </div>
 
             <div className="w-full flex-1 mt-8">
@@ -183,7 +183,7 @@ const Register = () => {
         </div>
 
         <div className="flex-1 bg-white dark:bg-black text-black dark:text-white text-center relative hidden md:flex transition-all duration-500 ease-in-out">
-          <Link to="/login" className="absolute top-4 left-4 flex items-center gap-2 text-lightGreen font-bold">
+          <Link to="/login" className="absolute top-4 left-4 flex items-center gap-2 text-black dark:text-lightGreen font-bold">
             <RedirectLogo className="w-10 h-10" />
             LOGIN
           </Link>
