@@ -15,6 +15,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
   const [success, setSuccess] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // New state for password visibility
   const navigate = useNavigate();
 
   const handlePhotoUpload = async (file) => {
@@ -110,16 +111,10 @@ const Register = () => {
         <div className="lg:w-4/6 xl:w-7/12 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
-            <h1
-                className="text-4xl xl:text-7xl font-title text-lightGreen dark:text-white2"
-                style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}
-              >
+              <h1 className="text-4xl xl:text-7xl font-title text-lightGreen dark:text-white2" style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}>
                 Register
               </h1>
-              <p
-                className="text-2xl xl:text-2xl font-title text-lightGreen dark:text-white2"
-                style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}
-              >
+              <p className="text-2xl xl:text-2xl font-title text-lightGreen dark:text-white2" style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}>
                 Register your account.
               </p>
             </div>
@@ -150,14 +145,23 @@ const Register = () => {
                   onChange={setPhone}
                   error={error.phone}
                 />
-                <InputField
-                  label="Password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={setPassword}
-                  error={error.password}
-                />
+                <div className="relative">
+                  <InputField
+                    label="Password"
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={setPassword}
+                    error={error.password}
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 dark:text-white font-title"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  >
+                    {passwordVisible ? "Hide" : "Show"}
+                  </button>
+                </div>
 
                 <div>
                   {error.photo && <p className="text-red-500 mb-1">{error.photo}</p>}

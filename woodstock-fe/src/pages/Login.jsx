@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,12 +27,11 @@ const Login = () => {
       const response = await userLogin(formData);
     
       if (response.success) {
-        console.log(response);
         setSuccess(true);
         setError({});
-        localStorage.setItem('userInfo', JSON.stringify(response.data)); // Save user info
+        localStorage.setItem('userInfo', JSON.stringify(response.data));
         setTimeout(() => {
-        navigate('/marketplace');
+          navigate('/marketplace');
         }, 1000);
       } else {
         setError({ general: response.message });
@@ -41,7 +41,6 @@ const Login = () => {
       setError({ general: 'Something went wrong. Please try again.' });
       setSuccess(false);
     }
-    
   };
 
   return (
@@ -74,16 +73,25 @@ const Login = () => {
                   type="text"
                   placeholder="Enter your username"
                   value={username}
-
                   onChange={(e) => setUsername(e.target.value)}
                 />
-                <input
-                  className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+
+                <div className="relative">
+                  <input
+                    className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
+                    type={showPassword ? "text" : "password"} 
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prevState) => !prevState)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-black font-title"
+                  >
+                    {showPassword ? 'Hide password' : 'Show password'}
+                  </button>
+                </div>
 
                 {error.general && <p className="text-red-400 mt-2">{error.general}</p>}
                 {success && <p className="text-green-500 mt-2">Login successful! Redirecting...</p>}
