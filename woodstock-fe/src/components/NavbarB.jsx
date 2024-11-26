@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo.jsx';
 import Toggle from './Toggle.jsx';
+import NavbarLogo from '../assets/NavbarLogo.jsx';
 
 function NavbarB() {
   const navigate = useNavigate();
@@ -21,10 +22,11 @@ function NavbarB() {
     <nav className="bg-white1 dark:bg-darkwood px-6 py-4 transition-all ease-in-out duration-500">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Link to='/marketplace' className="flex items-center bg-darkwood py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
-            <Logo />
+          <Link to="/marketplace" className="flex items-center py-2 px-4 hover:scale-105 rounded-xl transition-all ease-in-out duration-500">
+            <NavbarLogo/>
+            <span className='ml-2 mt-2 font-title text-3xl text-lightGreen rounded-lg bg-black px-1 dark:px-0 dark:bg-darkwood dark:text-lightOrange ease-in-out transition-all duration-500'>WOOD</span><span className='mt-2 font-title text-3xl text-lightOrange dark:text-lightGreen ease-in-out transition-all duration-500'>STOCK</span>
           </Link>
-          <Toggle />
+          <Toggle/>
         </div>
 
         {/* Search Bar */}

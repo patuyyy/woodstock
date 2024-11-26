@@ -55,7 +55,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-      <section className="bg-white2 dark:bg-black2 transition-all duration-500">
+      <section className="bg-white2 dark:bg-black2 transition-all duration-500 min-h-screen">
         <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-12">
           <div className=" items-center lg:col-span-full justify-center">
             <div className="mr-auto place-self-center lg:col-span-7">

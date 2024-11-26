@@ -110,12 +110,22 @@ const Register = () => {
         <div className="lg:w-4/6 xl:w-7/12 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
-              <h1 className="text-4xl xl:text-7xl font-title text-white1">Register</h1>
-              <p className="text-2xl xl:text-2xl font-title text-white1">Register your account!</p>
+            <h1
+                className="text-4xl xl:text-7xl font-title text-lightGreen dark:text-white2"
+                style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}
+              >
+                Register
+              </h1>
+              <p
+                className="text-2xl xl:text-2xl font-title text-lightGreen dark:text-white2"
+                style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 1)' }}
+              >
+                Register your account.
+              </p>
             </div>
 
             <div className="w-full flex-1 mt-8">
-              <div className="max-w-xs lg:max-w-screen-md flex flex-col gap-4">
+              <div className="max-w-xs lg:max-w-screen-xl flex flex-col gap-4">
                 <InputField
                   label="Username"
                   type="text"
@@ -152,7 +162,7 @@ const Register = () => {
                 <div>
                   {error.photo && <p className="text-red-500 mb-1">{error.photo}</p>}
                   <input
-                    className="w-full px-5 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
+                    className="w-full px-5 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 dark:bg-black4 dark:text-white font-title placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500"
                     type="file"
                     accept="image/*"
                     aria-label="Upload photo"
@@ -202,7 +212,7 @@ const InputField = ({ label, type, placeholder, value, onChange, error }) => (
     <input
       className={`w-full px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border ${
         error ? 'border-red-500' : 'border-gray-200'
-      } placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white`}
+      } placeholder-gray-500 dark:bg-black4 dark:placeholder:text-white dark:border-black dark:focus:bg-black2 placeholder:text-lg dark:text-white text-sm placeholder:font-title lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500`}
       type={type}
       placeholder={placeholder}
       value={value}
