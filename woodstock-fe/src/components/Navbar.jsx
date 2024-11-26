@@ -73,7 +73,7 @@ function Navbar() {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="lg:hidden mt-4 space-y-4 text-black dark:text-white dark:text-gray-300">
+        <div className="lg:hidden mt-4 space-y-4 text-black dark:text-white">
           <Link to="/" className="block hover:text-gray-400 dark:hover:text-gray-500 transition-colors duration-200">
             Home
           </Link>
