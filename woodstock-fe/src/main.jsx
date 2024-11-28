@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.jsx';
 import './index.css';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Register from './pages/Register.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 import Login from './pages/Login.jsx';
 import Marketplace from './pages/Marketplace.jsx';
-import AboutPage from './pages/AboutPage.jsx';
+import ProDetailPage from './pages/ProDetailPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import Register from './pages/Register.jsx';
 
 
 // Create a root element
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "marketplace",
     element:<Marketplace/>
+  },
+  {
+    path: "product/:id",
+    element:<ProDetailPage/>
   },
   {
     path: "about",

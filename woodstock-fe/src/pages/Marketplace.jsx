@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import NavbarB from "../components/NavbarB";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import LogoRaw from "../assets/LogoRaw";
+import NavbarB from "../components/NavbarB";
 
 const Marketplace = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {
     username: "Guest",
   };
+
+  const navigate = useNavigate(); // Untuk navigasi ke halaman lain
 
   // State to hold product data
   const [products, setProducts] = useState([]);
@@ -59,6 +61,10 @@ const Marketplace = () => {
         behavior: "smooth",
       });
     }
+  };
+
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`); // Navigasi ke halaman detail produk berdasarkan ID
   };
 
   return (
@@ -114,7 +120,8 @@ const Marketplace = () => {
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="bg-white2 dark:bg-black3 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-500 ease-in-out border border-gray-200 dark:border-gray-700 p-4"
+                  onClick={() => handleProductClick(product.id)} // Tambahkan event onClick
+                  className="bg-white2 dark:bg-black3 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-500 ease-in-out border border-gray-200 dark:border-gray-700 p-4 cursor-pointer"
                 >
                   <div
                     className="h-40 w-full bg-center bg-cover"
@@ -135,7 +142,6 @@ const Marketplace = () => {
               ))}
             </div>
           </main>
-
         </div>
       </div>
     </div>

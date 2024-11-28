@@ -1,8 +1,9 @@
 import React from "react"
 import Navbar from "./components/Navbar"
 //import NavbarB from "./components/NavbarB"
-import LandingPage from "./pages/LandingPage"
 //import ProfilePage from "./pages/ProfilePage"
+//import ProDetailPage from "./pages/ProDetailPage"
+import LandingPage from "./pages/LandingPage"
 
 
 export default function App() {
