@@ -1,23 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavbarB from "../components/NavbarB";
+import AdminNavbar from "../components/AdminNavbar";
 
 const ProfilePage = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const navigate = useNavigate();
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // State to toggle modal
 
   const handleSignOut = () => {
-    // Remove user info from localStorage
+    // Remove user info and cart from localStorage
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("cart");
 
     // Redirect to login page
     navigate("/login");
   };
 
+  const handleConfirmSignOut = () => {
+    handleSignOut();
+    setShowConfirmModal(false); // Close modal after sign out
+  };
+
+  const handleCancelSignOut = () => {
+    setShowConfirmModal(false); // Close modal without sign out
+  };
+
   return (
     <div>
-      <div className="min-h-screen bg-white2 dark:bg-black text-white flex flex-col ease-in-out transition-all duration-500">
-        <NavbarB />
+      {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
+      <div className="min-h-screen bg-white dark:bg-black text-white flex flex-col ease-in-out transition-all duration-500">
         {/* Main Content */}
         <div className="w-full mx-auto p-8 flex flex-col flex-grow">
           {/* Top Section */}
@@ -106,7 +118,7 @@ const ProfilePage = () => {
           {/* Sign Out Button */}
           <div className="mt-8 text-center">
             <button
-              onClick={handleSignOut}
+              onClick={() => setShowConfirmModal(true)} // Show confirmation modal
               className="bg-red-600 text-white py-2 px-6 rounded-lg text-xl font-semibold transition-all duration-300 ease-in-out hover:bg-red-500"
             >
               Sign Out
@@ -143,6 +155,32 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-black p-6 rounded-lg w-1/3">
+            <h2 className="text-2xl text-black dark:text-white mb-4">Are you sure?</h2>
+            <p className="text-lg text-black dark:text-white mb-4">
+              Signing out will delete your cart!.
+            </p>
+            <div className="flex justify-between">
+              <button
+                onClick={handleConfirmSignOut}
+                className="bg-red-600 text-white py-2 px-6 rounded-lg text-lg"
+              >
+                Yes, Sign Out
+              </button>
+              <button
+                onClick={handleCancelSignOut}
+                className="bg-gray-500 text-white py-2 px-6 rounded-lg text-lg"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

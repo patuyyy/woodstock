@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import NavbarB from "../components/NavbarB";
 import { Link } from "react-router-dom";
 import LogoRaw from "../assets/LogoRaw";
-import AdminNavbar from "../components/AdminNavbar";
+import Navbar from "../components/Navbar";
 
-const Marketplace = () => {
+const LandingMarketplace = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {
     username: "Guest",
   };
@@ -85,11 +84,11 @@ const Marketplace = () => {
 
   return (
     <div>
-      {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
+      <Navbar/>
       <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500">
         <header className="bg-white dark:bg-black1 p-5 transition-all ease-in-out duration-500">
           <h1 className="text-4xl font-title text-start text-black2 dark:text-white mb-2 ease-in-out transition-all duration-500">
-            Welcome back {userInfo.username}, to{" "}
+            Welcome {userInfo.username}, to{" "}
             <span className="text-lightGreen bg-black4 dark:bg-black1 px-1 dark:px-0 rounded-xl dark:text-lightOrange font-title text-outline inline-block ease-in-out transition-all duration-500">
               Wood
             </span>
@@ -161,8 +160,8 @@ const Marketplace = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
                 <Link
+                to='/login'
                   key={product.id}
-                  to={`/details/${product.id}`}
                   className="bg-white2 hover:scale-105 dark:bg-black3 rounded-lg overflow-hidden shadow-md hover:shadow-lg duration-500 ease-in-out border border-gray-200 dark:border-gray-700 p-4 transition-all"
                 >
                   <div
@@ -180,7 +179,7 @@ const Marketplace = () => {
                       onClick={(e) => handleAddToCart(product, e)}
                       className="mt-3 px-4 py-2 bg-lightOrange text-white text-sm font-medium rounded-md hover:bg-darkOrange transition-all duration-500"
                     >
-                      Add to Cart
+                      Login to see details
                     </button>
                   </div>
                 </Link>
@@ -193,4 +192,4 @@ const Marketplace = () => {
   );
 };
 
-export default Marketplace;
+export default LandingMarketplace;

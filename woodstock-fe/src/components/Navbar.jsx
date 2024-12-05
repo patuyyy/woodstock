@@ -52,8 +52,8 @@ function Navbar() {
           <Link to="/about" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
             About
           </Link>
-          <Link to="/services" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
-            Services
+          <Link to="/market" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+            Market
           </Link>
           <Link to="/contact" className="hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
             Contact
