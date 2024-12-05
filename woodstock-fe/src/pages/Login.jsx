@@ -92,19 +92,19 @@ const Login = () => {
 
                 {/* Password Input */}
                 <div className="relative">
-                <input
-                  className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  ref={passwordInputRef} // Attach ref
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleSubmit(e); // Submit only on Enter key
-                    }
-                  }}
-                />
+                  <input
+                    className="w-full placeholder:font-title px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    ref={passwordInputRef} // Attach ref
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSubmit(e); // Submit only on Enter key
+                      }
+                    }}
+                  />
                   <button
                     type="button"
                     onClick={() => setShowPassword((prevState) => !prevState)}

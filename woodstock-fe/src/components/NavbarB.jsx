@@ -36,7 +36,6 @@ function NavbarB() {
           <Toggle />
         </div>
 
-        {/* Search Bar */}
         <div className="flex flex-grow justify-end mr-14">
           <Link to='/cart' className='flex'>
             <CartLogo />

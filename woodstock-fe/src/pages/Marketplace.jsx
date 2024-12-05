@@ -51,13 +51,13 @@ const Marketplace = () => {
   const filteredProducts =
     selectedCategory === "All"
       ? products.filter((product) =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
       : products
-          .filter((product) => product.category === selectedCategory)
-          .filter((product) =>
-            product.name.toLowerCase().includes(searchQuery.toLowerCase())
-          );
+        .filter((product) => product.category === selectedCategory)
+        .filter((product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -74,7 +74,7 @@ const Marketplace = () => {
   const handleAddToCart = (product, event) => {
     event.preventDefault();  // Prevent the link from being followed
     event.stopPropagation(); // Stop the click event from propagating to the parent Link
-  
+
     // Add the product to the cart in localStorage
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push(product);
@@ -128,11 +128,10 @@ const Marketplace = () => {
                 <li
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`cursor-pointer text-lg py-2 ${
-                    selectedCategory === category
-                      ? "font-bold text-lightOrange"
-                      : "text-black dark:text-gray-300"
-                  } hover:text-lightGreen transition-all duration-300`}
+                  className={`cursor-pointer text-lg py-2 ${selectedCategory === category
+                    ? "font-bold text-lightOrange"
+                    : "text-black dark:text-gray-300"
+                    } hover:text-lightGreen transition-all duration-300`}
                 >
                   {category}
                 </li>
