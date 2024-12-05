@@ -12,7 +12,19 @@ const Marketplace = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortCriteria, setSortCriteria] = useState("none"); // State for sorting criteria
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    const navbarHeight = 80;
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - navbarHeight,
+        behavior: "smooth",
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,7 +42,6 @@ const Marketplace = () => {
           }));
           setProducts(productData);
 
-          // Extract unique categories
           const uniqueCategories = [
             "All",
             ...new Set(productData.map((product) => product.category)),
@@ -47,7 +58,21 @@ const Marketplace = () => {
     fetchProducts();
   }, []);
 
-  // Filter products based on selected category and search query
+  const sortProducts = (products) => {
+    switch (sortCriteria) {
+      case "price-asc":
+        return [...products].sort((a, b) => a.price - b.price);
+      case "price-desc":
+        return [...products].sort((a, b) => b.price - a.price);
+      case "name-asc":
+        return [...products].sort((a, b) => a.name.localeCompare(b.name));
+      case "name-desc":
+        return [...products].sort((a, b) => b.name.localeCompare(a.name));
+      default:
+        return products;
+    }
+  };
+
   const filteredProducts =
     selectedCategory === "All"
       ? products.filter((product) =>
@@ -59,23 +84,12 @@ const Marketplace = () => {
           product.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    const navbarHeight = 80;
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - navbarHeight,
-        behavior: "smooth",
-      });
-    }
-  };
-
+  const sortedProducts = sortProducts(filteredProducts);
 
   const handleAddToCart = (product, event) => {
-    event.preventDefault();  // Prevent the link from being followed
-    event.stopPropagation(); // Stop the click event from propagating to the parent Link
+    event.preventDefault();
+    event.stopPropagation();
 
-    // Add the product to the cart in localStorage
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -129,14 +143,32 @@ const Marketplace = () => {
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`cursor-pointer text-lg py-2 ${selectedCategory === category
-                    ? "font-bold text-lightOrange"
-                    : "text-black dark:text-gray-300"
+                      ? "font-bold text-lightOrange"
+                      : "text-black dark:text-gray-300"
                     } hover:text-lightGreen transition-all duration-300`}
                 >
                   {category}
                 </li>
               ))}
             </ul>
+
+            {/* Sorting Section */}
+            <div className="mt-6">
+              <h3 className="font-bold text-leafGreen text-lg mb-2">
+                Sort By
+              </h3>
+              <select
+                className="w-full p-2 rounded-md bg-white dark:bg-black3 text-black dark:text-white border border-gray-300 dark:border-gray-600"
+                value={sortCriteria}
+                onChange={(e) => setSortCriteria(e.target.value)}
+              >
+                <option value="none">None</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A to Z</option>
+                <option value="name-desc">Name: Z to A</option>
+              </select>
+            </div>
           </aside>
 
           <main className="flex-grow bg-white1 dark:bg-black4 p-6 ease-in-out transition-all duration-500">
@@ -151,14 +183,11 @@ const Marketplace = () => {
               />
             </div>
 
-            <div
-              id="our-products"
-              className="text-2xl text-black dark:text-white font-title mb-5"
-            >
+            <div id="our-products" className="text-2xl font-title mb-5">
               Our Products
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
+              {sortedProducts.map((product) => (
                 <Link
                   key={product.id}
                   to={`/details/${product.id}`}
