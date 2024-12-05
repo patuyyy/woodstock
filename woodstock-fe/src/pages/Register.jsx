@@ -19,6 +19,8 @@ const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false); // New state for password visibility
   const navigate = useNavigate();
   const [country, setSelectedCountry] = useState("+1");
+  const [isAgreed, setIsAgreed] = useState(false); // New state for checkbox
+
 
 
   const handlePhotoUpload = async (file) => {
@@ -52,7 +54,7 @@ const Register = () => {
     const phoneRegex = /^\d+$/;
     const errors = {};
 
-    if(!name) errors.name = 'Name cannot be Empty';
+    if (!name) errors.name = 'Name cannot be Empty';
 
     if (!username) errors.username = 'Username cannot be empty.';
     else if (!usernameRegex.test(username))
@@ -74,9 +76,8 @@ const Register = () => {
   const CountrySelect = ({ label, value, onChange, countries, error }) => (
     <div>
       <select
-        className={`w-full px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border ${
-          error ? 'border-red-500' : 'border-gray-200'
-        } dark:bg-black4 dark:placeholder:text-white dark:border-black dark:focus:bg-black2 dark:text-white text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500`}
+        className={`w-full px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border ${error ? 'border-red-500' : 'border-gray-200'
+          } dark:bg-black4 dark:placeholder:text-white dark:border-black dark:focus:bg-black2 dark:text-white text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500`}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >
@@ -92,7 +93,7 @@ const Register = () => {
       {error && <p className="text-red-500 mt-1">{error}</p>}
     </div>
   );
-  
+
 
   const countries = [
     { name: 'Indonesia' },
@@ -250,6 +251,28 @@ const Register = () => {
                   {isUploading && <p className="text-yellow-500 mt-2">Uploading photo...</p>}
                 </div>
 
+                <div className="flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    id="privacyPolicy"
+                    className="mt-1"
+                    checked={isAgreed}
+                    onChange={(e) => setIsAgreed(e.target.checked)}
+                  />
+                  <label htmlFor="privacyPolicy" className="text-sm lg:text-base text-gray-700 dark:text-white">
+                    I have read and i agree to the{' '}
+                    <a
+                      href="https://docs.google.com/document/d/1S4kW37WWDAoZXyD539FgjbX1pePPYG7pcPA4RNraPPs/edit?usp=sharing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 underline"
+                    >
+                      Privacy Policy 
+                    </a>
+                      . of User Credentials on Woodstock
+                  </label>
+                </div>
+
                 {error.general && <p className="text-red-400 font-title mt-2">{error.general}</p>}
                 {success && <p className="text-green-500 mt-2">Account created successfully! Redirecting...</p>}
 
@@ -285,14 +308,17 @@ const Register = () => {
   );
 };
 
+
+
+
+export default Register;
 const InputField = ({ label, type, placeholder, value, onChange, error, onKeyDown, inputRef }) => (
   <div>
     {error && <p className="text-red-500 mb-1">{error}</p>}
     <input
       ref={inputRef}
-      className={`w-full px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border ${
-        error ? 'border-red-500' : 'border-gray-200'
-      } placeholder-gray-500 dark:bg-black4 dark:placeholder:text-white dark:border-black dark:focus:bg-black2 placeholder:text-lg dark:text-white text-sm placeholder:font-title lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500`}
+      className={`w-full px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border ${error ? 'border-red-500' : 'border-gray-200'
+        } placeholder-gray-500 dark:bg-black4 dark:placeholder:text-white dark:border-black dark:focus:bg-black2 placeholder:text-lg dark:text-white text-sm placeholder:font-title lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500`}
       type={type}
       placeholder={placeholder}
       value={value}
@@ -302,6 +328,3 @@ const InputField = ({ label, type, placeholder, value, onChange, error, onKeyDow
     />
   </div>
 );
-
-
-export default Register;
