@@ -8,6 +8,8 @@ import Login from './pages/Login.jsx';
 import Marketplace from './pages/Marketplace.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import DetailsPage from './pages/DetailsPage.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 
 // Create a root element
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
   {
     path: "profile",
     element: <ProfilePage/>
+  },
+  {
+    path: "details/:id",
+    element: <DetailsPage/>
+  },
+  {
+    path: "admin",
+    element: <AdminDashboard/>
   }
 ]);
 

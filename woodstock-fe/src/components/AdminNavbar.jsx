@@ -4,7 +4,7 @@ import Logo from '../assets/Logo.jsx';
 import Toggle from './Toggle.jsx';
 import NavbarLogo from '../assets/NavbarLogo.jsx';
 
-function NavbarB() {
+function AdminNavbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,19 +29,14 @@ function NavbarB() {
           <Toggle/>
         </div>
 
-        {/* Search Bar */}
-        <div className="flex flex-grow justify-center">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="w-full max-w-md px-4 py-2 rounded-md bg-lightWhite dark:bg-gray-800 text-darkwood dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-lightGreen transition-all duration-300"
-          />
-        </div>
 
         {/* User Info */}
         {userInfo && (
           <div className="flex items-center space-x-4">
-            <Link to='/profile' className="text-xl text-black dark:text-white">{userInfo.username}</Link>
+            <Link to="/admin" className="hover:text-lightOrange dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+                Admin Page
+            </Link>
+            <Link to='/profile' className="text-xl text-black font-title dark:text-white">{userInfo.username}</Link>
             <Link
               to='/profile'
               className="w-8 h-8 rounded-full bg-cover bg-center cursor-pointer"
@@ -54,4 +49,4 @@ function NavbarB() {
   );
 }
 
-export default NavbarB;
+export default AdminNavbar;

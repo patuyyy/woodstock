@@ -58,8 +58,8 @@ const ProfilePage = () => {
               <label className="block text-xl text-black dark:text-white sm:text-2xl font-title md:text-3xl mb-4 ease-in-out transition-all duration-500">
                 Name
               </label>
-              <div className="bg-gray-800 dark:bg-darkOrange p-6 rounded-md text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
-                User Name
+              <div className="bg-gray-800 dark:bg-black4 p-6 rounded-md text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
+                {userInfo.name}
               </div>
             </div>
 
@@ -68,7 +68,7 @@ const ProfilePage = () => {
               <label className="block text-xl text-black dark:text-white sm:text-2xl font-title md:text-3xl mb-4 ease-in-out transition-all duration-500">
                 Phone
               </label>
-              <div className="bg-gray-800 dark:bg-darkOrange p-6 rounded-md text-gray-300 text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
+              <div className="bg-gray-800 dark:bg-black4 p-6 rounded-md text-gray-300 text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
                 {userInfo.phone}
               </div>
             </div>
@@ -78,7 +78,7 @@ const ProfilePage = () => {
               <label className="block text-xl text-black dark:text-white sm:text-2xl font-title md:text-3xl mb-4 ease-in-out transition-all duration-500">
                 Email
               </label>
-              <div className="bg-gray-800 dark:bg-darkOrange p-6 rounded-md text-gray-300 text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
+              <div className="bg-gray-800 dark:bg-black4 p-6 rounded-md text-gray-300 text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
                 {userInfo.email}
               </div>
             </div>
@@ -88,8 +88,17 @@ const ProfilePage = () => {
               <label className="block text-xl text-black dark:text-white sm:text-2xl font-title md:text-3xl mb-4 ease-in-out transition-all duration-500">
                 Username
               </label>
-              <div className="bg-gray-800 dark:bg-darkOrange p-6 rounded-md text-gray-300 text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
+              <div className="bg-gray-800 dark:bg-black4 p-6 rounded-md text-gray-300 text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
                 {userInfo.username}
+              </div>
+            </div>
+
+            <div className="sm:col-span-1 md:col-span-2">
+              <label className="block text-xl text-black dark:text-white sm:text-2xl font-title md:text-3xl mb-4 ease-in-out transition-all duration-500">
+                Country
+              </label>
+              <div className="bg-gray-800 dark:bg-black4 p-6 rounded-md text-gray-300 text-xl sm:text-2xl md:text-2xl ease-in-out transition-all duration-500">
+                {userInfo.country}
               </div>
             </div>
           </div>
