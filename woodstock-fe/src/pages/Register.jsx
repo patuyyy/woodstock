@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import WoodStockLogo from '../assets/WoodStockLogo';
 import { userSignUp } from '../actions/userAction';
@@ -11,12 +11,15 @@ const Register = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
   const [success, setSuccess] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false); // New state for password visibility
   const navigate = useNavigate();
+  const [country, setSelectedCountry] = useState("+1");
+
 
   const handlePhotoUpload = async (file) => {
     setIsUploading(true);
@@ -66,6 +69,42 @@ const Register = () => {
     return errors;
   };
 
+  const CountrySelect = ({ label, value, onChange, countries, error }) => (
+    <div>
+      <select
+        className={`w-full px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border ${
+          error ? 'border-red-500' : 'border-gray-200'
+        } dark:bg-black4 dark:placeholder:text-white dark:border-black dark:focus:bg-black2 dark:text-white text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500`}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        <option value="" disabled>
+          Select your country
+        </option>
+        {countries.map((country) => (
+          <option key={country.name} value={country.name}>
+            {country.name}
+          </option>
+        ))}
+      </select>
+      {error && <p className="text-red-500 mt-1">{error}</p>}
+    </div>
+  );
+  
+
+  const countries = [
+    { name: 'Indonesia' },
+    { name: 'United Kingdom' },
+    { name: 'India' },
+    { name: 'Canada' },
+    { name: 'United States' },
+    { name: 'Malaysia' },
+    { name: 'Singapore' },
+    { name: 'Australia' },
+    { name: 'Thailand' },
+  ];
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateInputs();
@@ -82,10 +121,8 @@ const Register = () => {
         photoUrl = await handlePhotoUpload(photo);
       }
 
-      // Prepare the form data with the (optional) photo
-      const formData = { email, username, phone, password, photo: photoUrl };
-
-      // Send the signup request to the backend
+      const formData = { name, email, username, phone, password, photo: photoUrl, country };
+      console.log(formData);
       const response = await userSignUp(formData);
 
       if (response.success) {
@@ -103,6 +140,18 @@ const Register = () => {
       setSuccess(false);
     }
   };
+
+  const handleKeyDown = (e, nextInputRef) => {
+    if (e.key === "Enter" && nextInputRef) {
+      e.preventDefault(); // Prevent default form submission
+      nextInputRef.current.focus(); // Focus the next input field
+    }
+  };
+  const nameRef = useRef(null);
+  const usernameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneRef = useRef(null);
+  const passwordRef = useRef(null);
 
   return (
     <div>
@@ -122,12 +171,24 @@ const Register = () => {
             <div className="w-full flex-1 mt-8">
               <div className="max-w-xs lg:max-w-screen-xl flex flex-col gap-4">
                 <InputField
+                  label="Name"
+                  type="text"
+                  placeholder="Enter your Name"
+                  value={name}
+                  onChange={setName}
+                  error={error.name}
+                  inputRef={nameRef}
+                  onKeyDown={(e) => handleKeyDown(e, usernameRef)}
+                />
+                <InputField
                   label="Username"
                   type="text"
                   placeholder="Enter your username"
                   value={username}
                   onChange={setUsername}
                   error={error.username}
+                  inputRef={usernameRef}
+                  onKeyDown={(e) => handleKeyDown(e, emailRef)}
                 />
                 <InputField
                   label="Email"
@@ -136,6 +197,8 @@ const Register = () => {
                   value={email}
                   onChange={setEmail}
                   error={error.email}
+                  inputRef={emailRef}
+                  onKeyDown={(e) => handleKeyDown(e, phoneRef)}
                 />
                 <InputField
                   label="Phone"
@@ -144,6 +207,15 @@ const Register = () => {
                   value={phone}
                   onChange={setPhone}
                   error={error.phone}
+                  inputRef={phoneRef}
+                  onKeyDown={(e) => handleKeyDown(e, passwordRef)}
+                />
+                <CountrySelect
+                  label="Country"
+                  value={country}
+                  onChange={setSelectedCountry}
+                  countries={countries}
+                  error={error.country}
                 />
                 <div className="relative">
                   <InputField
@@ -153,6 +225,7 @@ const Register = () => {
                     value={password}
                     onChange={setPassword}
                     error={error.password}
+                    inputRef={passwordRef}
                   />
                   <button
                     type="button"
@@ -210,10 +283,11 @@ const Register = () => {
   );
 };
 
-const InputField = ({ label, type, placeholder, value, onChange, error }) => (
+const InputField = ({ label, type, placeholder, value, onChange, error, onKeyDown, inputRef }) => (
   <div>
     {error && <p className="text-red-500 mb-1">{error}</p>}
     <input
+      ref={inputRef}
       className={`w-full px-5 py-4 lg:py-5 rounded-lg font-medium bg-gray-100 border ${
         error ? 'border-red-500' : 'border-gray-200'
       } placeholder-gray-500 dark:bg-black4 dark:placeholder:text-white dark:border-black dark:focus:bg-black2 placeholder:text-lg dark:text-white text-sm placeholder:font-title lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500`}
@@ -221,9 +295,11 @@ const InputField = ({ label, type, placeholder, value, onChange, error }) => (
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      onKeyDown={onKeyDown} // Added handler
       aria-label={label}
     />
   </div>
 );
+
 
 export default Register;
