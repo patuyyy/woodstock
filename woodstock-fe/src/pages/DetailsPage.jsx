@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavbarB from "../components/NavbarB";
+import AdminNavbar from "../components/AdminNavbar";
 
 const DetailsPage = () => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {
+    username: "Guest",
+  };
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -55,7 +59,7 @@ const DetailsPage = () => {
 
   return (
     <div className="min-h-screen bg-white1 dark:bg-darkwood text-black dark:text-white">
-      <NavbarB/>
+      {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
       <div className="max-w-full mx-auto p-8 flex flex-col lg:flex-row">
         {/* Left side (Image) */}
         <div className={`flex-shrink-0 w-full lg:w-1/2 mb-4 lg:mb-0 rounded-lg`}>
