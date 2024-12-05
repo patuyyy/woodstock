@@ -52,6 +52,8 @@ const Register = () => {
     const phoneRegex = /^\d+$/;
     const errors = {};
 
+    if(!name) errors.name = 'Name cannot be Empty';
+
     if (!username) errors.username = 'Username cannot be empty.';
     else if (!usernameRegex.test(username))
       errors.username = 'Username can only contain letters, numbers, and underscores.';

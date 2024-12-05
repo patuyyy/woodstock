@@ -10,6 +10,9 @@ import AboutPage from './pages/AboutPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import DetailsPage from './pages/DetailsPage.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
+import Page404 from './pages/404Page.jsx';
+import CartPage from './pages/CartPage.jsx';
+import LandingMarketplace from './pages/LandingMarketplace.jsx';
 
 
 // Create a root element
@@ -45,7 +48,19 @@ const router = createBrowserRouter([
   {
     path: "admin",
     element: <AdminDashboard/>
-  }
+  },
+  {
+    path: "cart",
+    element: <CartPage/>
+  },
+  {
+    path: "market",
+    element: <LandingMarketplace/>
+  },
+  {
+    path: "*",
+    element: <Page404/>
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
