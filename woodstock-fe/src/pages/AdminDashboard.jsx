@@ -45,7 +45,6 @@ const AdminDashboard = () => {
 
       if (data.success) {
         setMessage("Tree added successfully!");
-        // Clear form after successful submission
         setFormData({
           name: "",
           price: "",
@@ -87,7 +86,7 @@ const AdminDashboard = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md text-black"
               required
             />
           </div>
@@ -100,7 +99,7 @@ const AdminDashboard = () => {
               name="price"
               value={formData.price}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md text-black"
               required
             />
           </div>
@@ -112,7 +111,7 @@ const AdminDashboard = () => {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md text-black"
               rows="4"
               required
             />
@@ -126,7 +125,7 @@ const AdminDashboard = () => {
               name="categories"
               value={formData.categories}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md text-black"
               required
             />
           </div>
@@ -139,7 +138,7 @@ const AdminDashboard = () => {
               name="photo"
               value={formData.photo}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md text-black"
               required
             />
           </div>
