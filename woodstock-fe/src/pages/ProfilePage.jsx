@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarB from "../components/NavbarB";
 import AdminNavbar from "../components/AdminNavbar";
+import NavbarB from "../components/NavbarB";
 
 const ProfilePage = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -25,6 +25,14 @@ const ProfilePage = () => {
   const handleCancelSignOut = () => {
     setShowConfirmModal(false); // Close modal without sign out
   };
+
+  const handlePortfolio = () => {
+    navigate("/portfolio");
+  };
+
+  const handleShopCart = () => {
+    navigate("/cart");
+  }
 
   return (
     <div>
@@ -136,13 +144,13 @@ const ProfilePage = () => {
             </div>
 
             {/* Shopping Cart */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center cursor-pointer" onClick={handleShopCart}>
               <span className="text-orange-500 text-4xl sm:text-5xl md:text-6xl">🛒</span>
               <p className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold">Shopping Cart</p>
             </div>
 
             {/* Portfolio */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center cursor-pointer" onClick={handlePortfolio}>
               <span className="text-orange-500 text-4xl sm:text-5xl md:text-6xl">📄</span>
               <p className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold">Portfolio</p>
             </div>

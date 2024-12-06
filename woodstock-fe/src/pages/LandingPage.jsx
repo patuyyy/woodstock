@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import LogoRaw from "../assets/LogoRaw";
 import { Link } from 'react-router-dom';
+import LogoRaw from "../assets/LogoRaw";
 
 
 const LandingPage = () => {
@@ -8,11 +8,11 @@ const LandingPage = () => {
   const [animationClass, setAnimationClass] = useState("slide-in");
 
   const goals = [
-    "Lorem ipsum dolor sit amet",
-    "consectetuer adipiscing elit",
-    "Maecenas porttitor congue massa.",
-    "Ensure customer satisfaction",
-    "Fusce posuere, magna sed pulvinar ultricies",
+    "Improve and Support Community Education towards the environment",
+    "Providing a positive impact for the long term of the environment",
+    "Encouraging the use of environmentally friendly technology",
+    "Encouraging Investment transparency",
+    "Ensure the customer satisfaction throughout the experience",
   ];
 
   const maxItems = 3;
@@ -44,7 +44,7 @@ const LandingPage = () => {
               <span className="text-lightOrange dark:text-lightGreen text-9xl font-extrabold font-title text-outline transition-all ease-in-out duration-500">STOCK</span>
           </h1>
             <p className="max-w-2xl mb-6 text-black font-light lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
+            WoodStock is a green-metric based web application that accommodates anyone, most importantly nature lovers, to promote environmental greening movement through some web features.
             </p>
             <Link to="/register" className="bg-lightOrange px-4 py-2 text-2xl hover:scale-105 transition-all duration-300 hover:text-lightGreen rounded-xl inline-block font-title text-white">
               Get Started
