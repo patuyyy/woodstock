@@ -36,6 +36,9 @@ function AdminNavbar() {
             <Link to="/admin" className="hover:text-lightOrange dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
                 Admin Page
             </Link>
+            <Link to="/admin/order" className="hover:text-lightOrange dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+                Admin Orders Page
+            </Link>
             <Link to='/profile' className="text-xl text-black font-title dark:text-white">{userInfo.username}</Link>
             <Link
               to='/profile'

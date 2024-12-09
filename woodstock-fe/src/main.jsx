@@ -13,6 +13,9 @@ import AdminDashboard from './pages/AdminDashboard.jsx';
 import Page404 from './pages/404Page.jsx';
 import CartPage from './pages/CartPage.jsx';
 import LandingMarketplace from './pages/LandingMarketplace.jsx';
+import OrdersPage from './pages/OrdersPage.jsx';
+import AdminDashboardOrderPage from './pages/AdminDashboardOrderPage.jsx';
+import AdminOrderDetail from './pages/AdminOrderDetail.jsx';
 
 
 // Create a root element
@@ -56,6 +59,18 @@ const router = createBrowserRouter([
   {
     path: "market",
     element: <LandingMarketplace/>
+  },
+  {
+    path: "order",
+    element: <OrdersPage/>
+  },
+  {
+    path: "admin/order",
+    element: <AdminDashboardOrderPage/>
+  },
+  {
+    path: "AdminOrderDetail/:id",
+    element: <AdminOrderDetail/>
   },
   {
     path: "*",

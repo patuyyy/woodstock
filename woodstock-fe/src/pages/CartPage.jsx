@@ -1,50 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NavbarB from '../components/NavbarB';
+import PaymentModal from '../components/PaymentModal'; // Import the modal
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
-
+  const [isPaymentModalOpen, setPaymentModalOpen] = useState(false);
+  const taxRate = 0.1;
+  const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {
+    username: "Guest",
+  };
   useEffect(() => {
-    // Load the cart from localStorage and ensure each product has a qty property
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    // Combine same products by summing up their quantity (qty)
     const updatedCart = storedCart.reduce((acc, product) => {
       const existingProduct = acc.find(item => item.id === product.id);
       if (existingProduct) {
-        existingProduct.qty += 1; // Increment qty if product is already in cart
+        existingProduct.qty += 1;
       } else {
-        product.qty = 1; // Initialize qty for new product
+        product.qty = 1;
         acc.push(product);
       }
       return acc;
     }, []);
-    
     setCart(updatedCart);
   }, []);
 
   const handleRemoveFromCart = (productId) => {
-    // Remove the product by filtering out the item based on the product ID
     const updatedCart = cart.filter(product => product.id !== productId);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-    setCart(updatedCart); // Update the state
+    setCart(updatedCart);
     window.location.reload();
   };
 
   const handleClearCart = () => {
-    // Clear the entire cart from localStorage and state
     localStorage.removeItem('cart');
     setCart([]);
     window.location.reload();
   };
 
+  const handlePaymentSelect = (method) => {
+    
+  };
+
+  const subtotal = cart.reduce((sum, product) => sum + product.price * product.qty, 0);
+  const tax = subtotal * taxRate;
+  const total = subtotal + tax;
+
   return (
     <div>
-      <NavbarB />
+      {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
       <div className="p-6 bg-white dark:bg-black1 min-h-screen">
         <h1 className="text-3xl font-title text-black dark:text-white mb-4">Your Cart</h1>
-        
+
         {cart.length === 0 ? (
           <p className="text-lg text-center text-black dark:text-white">Your cart is empty.</p>
         ) : (
@@ -67,7 +74,7 @@ const CartPage = () => {
                       Quantity: {product.qty}
                     </p>
                     <p className="text-gray-600 font-title text-lg dark:text-gray-300">
-                      Total: Rp {product.qty * product.price}
+                      Total: Rp {(product.qty * product.price).toFixed(2)}
                     </p>
                     <button
                       onClick={() => handleRemoveFromCart(product.id)}
@@ -80,6 +87,33 @@ const CartPage = () => {
               ))}
             </div>
 
+            <div className="mt-8 bg-white dark:bg-black3 p-6 rounded-lg shadow-md">
+              <h2 className="text-2xl font-title text-black dark:text-white mb-4">Invoice</h2>
+              <div className="mb-4">
+                <h3 className="text-xl font-title text-black dark:text-white mb-2">Product Totals:</h3>
+                {cart.map(product => (
+                  <div key={product.id} className="flex justify-between text-gray-600 dark:text-gray-300 text-lg">
+                    <span>{product.name} x {product.qty}:</span>
+                    <span>Rp {(product.qty * product.price).toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="text-lg text-gray-600 dark:text-gray-300">
+                <p className="flex justify-between">
+                  <span>Subtotal:</span>
+                  <span>Rp {subtotal.toFixed(2)}</span>
+                </p>
+                <p className="flex justify-between">
+                  <span>Tax (10%):</span>
+                  <span>Rp {tax.toFixed(2)}</span>
+                </p>
+                <p className="flex justify-between font-bold text-black dark:text-white">
+                  <span>Total:</span>
+                  <span>Rp {total.toFixed(2)}</span>
+                </p>
+              </div>
+            </div>
+
             <div className="mt-6 flex justify-between">
               <Link
                 to="/marketplace"
@@ -87,6 +121,12 @@ const CartPage = () => {
               >
                 Continue Shopping
               </Link>
+              <button
+                onClick={() => setPaymentModalOpen(true)} // Open the payment modal
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-600 transition-all duration-500"
+              >
+                Pay Now
+              </button>
               <button
                 onClick={handleClearCart}
                 className="px-4 py-2 bg-lightOrange text-white text-sm font-medium rounded-md hover:bg-darkOrange transition-all duration-500"
@@ -96,6 +136,13 @@ const CartPage = () => {
             </div>
           </div>
         )}
+
+        {/* Payment Modal */}
+        <PaymentModal
+          isOpen={isPaymentModalOpen}
+          onClose={() => setPaymentModalOpen(false)}
+          onPaymentSelect={handlePaymentSelect}
+        />
       </div>
     </div>
   );
