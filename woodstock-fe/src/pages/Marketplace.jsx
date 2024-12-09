@@ -3,6 +3,7 @@ import NavbarB from "../components/NavbarB";
 import { Link } from "react-router-dom";
 import LogoRaw from "../assets/LogoRaw";
 import AdminNavbar from "../components/AdminNavbar";
+import Footer from "../components/Footer";
 
 const Marketplace = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {
@@ -98,7 +99,7 @@ const Marketplace = () => {
   };
 
   return (
-    <div>
+    <div className="bg-white2 dark:bg-black2">
       {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
       <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500">
         <header className="bg-white dark:bg-black1 p-5 transition-all ease-in-out duration-500">
@@ -217,7 +218,9 @@ const Marketplace = () => {
           </main>
         </div>
       </div>
+      <Footer/>
     </div>
+    
   );
 };
 
