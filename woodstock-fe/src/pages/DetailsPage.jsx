@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavbarB from "../components/NavbarB";
+import AdminNavbar from "../components/AdminNavbar";
 
 const DetailsPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [expanded, setExpanded] = useState(false); // State to control image expansion
+  const [expanded, setExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState("details"); // Tambahkan state untuk tab aktif
+  const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {
+    username: "Guest",
+  };
+  
 
+  const yes = "Available"
+  const no = "Not Available"
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -31,7 +39,7 @@ const DetailsPage = () => {
   }, [id]);
 
   const toggleImage = () => {
-    setExpanded(!expanded); // Toggle image expansion
+    setExpanded(!expanded);
   };
 
   if (loading) {
@@ -49,6 +57,7 @@ const DetailsPage = () => {
       </div>
     );
   }
+
   const handleAddToCart = (product, event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -61,40 +70,108 @@ const DetailsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white1 dark:bg-darkwood text-black dark:text-white">
-      <NavbarB/>
-      <div className="max-w-full mx-auto p-8 flex flex-col lg:flex-row">
-        {/* Left side (Image) */}
-        <div className={`flex-shrink-0 w-full lg:w-1/2 mb-4 lg:mb-0 rounded-lg`}>
-          <img
-            src={product.photo}
-            alt={product.name}
-            className={`w-full h-64 object-cover rounded-lg transition-all duration-500 cursor-pointer ${expanded ? 'h-full' : 'h-64'}`}
-            onClick={toggleImage}
-            style={{
-              objectFit: 'cover', // Ensures the image covers the area without distortion
-              transition: 'all 0.3s ease' // Smooth transition when expanding
-            }}
-          />
-          {!expanded && (
-            <p className="text-center text-xl font-title text-gray-500 mt-2">Click to expand</p>
-          )}
+    <div className="min-h-screen bg-white1 dark:bg-black1 text-white transition-all duration-500">
+      {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
+      <div className="max-w-6xl mx-auto py-8 px-4">
+        <header className="text-center text-black dark:text-white text-3xl font-bold mb-6 transition-all duration-500">
+          PRODUCT DETAILS
+        </header>
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Bagian Gambar */}
+          <div className="w-full lg:w-1/2">
+            <img
+              src={product.photo}
+              alt={product.name}
+              className={`w-full rounded-lg transition-all duration-500 cursor-pointer ${
+                expanded ? "h-full" : "h-64"
+              }`}
+              onClick={toggleImage}
+              style={{ objectFit: "cover", transition: "all 0.3s ease" }}
+            />
+            {!expanded && (
+              <p className="text-center text-black dark:text-gray-400 mt-2 transition-all duration-500">Click to expand</p>
+            )}
+          </div>
+
+          {/* Bagian Konten */}
+          <div className="flex-1">
+            <h1 className="text-4xl text-darkGreen font-bold mb-2 dark:text-lightYellow transition-all duration-500">
+              {product.name}
+            </h1>
+            <p className="text-2xl font-bold text-black dark:text-green-400 my-4 transition-all duration-500">
+              Rp. {product.price.toLocaleString()}
+            </p>
+
+            {/* Tab Navigasi */}
+            <div className="flex border-b border-black dark:border-gray-600 mb-4 transition-all duration-500">
+              <button
+                className={`px-4 py-2 ${
+                  activeTab === "details"
+                    ? "text-black dark:text-lightGreen border-b-2 border-black dark:border-lightGreen transition-all duration-500"
+                    : "text-gray-400"
+                }`}
+                onClick={() => setActiveTab("details")}
+              >
+                Details
+              </button>
+              <button
+                className={`px-4 py-2 ${
+                  activeTab === "rating"
+                    ? "text-black dark:text-lightGreen border-b-2 border-black dark:border-lightGreen transition-all duration-500"
+                    : "text-gray-400"
+                }`}
+                onClick={() => setActiveTab("rating")}
+              >
+                Rating
+              </button>
+            </div>
+
+            {/* Konten Berdasarkan Tab Aktif */}
+            {activeTab === "details" ? (
+              <div className="text-black dark:text-gray-300 space-y-2 transition-all duration-500">
+                <p>{product.description}</p>
+                <p>
+                  <strong>Category:</strong> {product.categories}
+                </p>
+              </div>
+            ) : (
+              <div className="text-black dark:text-gray-300 space-y-2 transition-all duration-500">
+                {product.rating ? (
+                  <p>
+                    Average Rating:{" "}
+                    <span className="text-lightYellow font-bold">
+                      ★ {product.rating}
+                    </span>
+                  </p>
+                ) : (
+                  <p>No ratings available yet.</p>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Right side (Product Attributes) */}
-        <div className="flex-1 lg:ml-8">
-          <h1 className="text-4xl font-title text-black dark:text-white mb-2">{product.name}</h1>
-          <p className="text-xl mb-4 text-black2 dark:text-lightGreen">Price: Rp {product.price}</p>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">{product.description}</p>
-          <p className="text-lg text-gray-500 dark:text-gray-400 mt-4">
-            <strong>Category:</strong> {product.categories}
-          </p>
-          <button
-            onClick={(e) => handleAddToCart(product, e)}
-            className="mt-3 px-4 py-2 bg-lightOrange text-white text-xl font-medium rounded-md hover:bg-darkOrange transition-all duration-500"
-          >
-            Add to Cart
-          </button>
+        {/* Bagian Footer */}
+        <div className="mt-8 bg-gray-800 p-6 rounded-lg">
+          <div className="flex flex-col sm:flex-row items-center justify-between">
+            <div className="text-lg text-gray-400">
+              Stock:{" "}
+              <span className="font-bold text-white">
+                { product.availability ? yes : no}
+              </span>
+            </div>
+            <div className="flex gap-4 mt-4 sm:mt-0">
+              <button className="bg-green-500 px-6 py-2 rounded text-white font-bold hover:bg-green-600 transition-all">
+                Buy Now
+              </button>
+              <button
+                onClick={(e) => handleAddToCart(product, e)}
+                className="bg-gray-700 px-6 py-2 rounded text-white font-bold hover:bg-gray-600 transition-all"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

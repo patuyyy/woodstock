@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.jsx';
 import './index.css';
-import Page404 from './pages/404Page.jsx';
-import AboutPage from './pages/AboutPage.jsx';
-import AdminDashboard from './pages/AdminDashboard.jsx';
-import CartPage from './pages/CartPage.jsx';
-import DetailsPage from './pages/DetailsPage.jsx';
-import LandingMarketplace from './pages/LandingMarketplace.jsx';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import Marketplace from './pages/Marketplace.jsx';
-import PortfolioPage from './pages/PortfolioPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
-import Register from './pages/Register.jsx';
+import DetailsPage from './pages/DetailsPage.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
+import Page404 from './pages/404Page.jsx';
+import CartPage from './pages/CartPage.jsx';
+import LandingMarketplace from './pages/LandingMarketplace.jsx';
+import OrdersPage from './pages/OrdersPage.jsx';
+import AdminDashboardOrderPage from './pages/AdminDashboardOrderPage.jsx';
+import AdminOrderDetail from './pages/AdminOrderDetail.jsx';
 
 
 // Create a root element
@@ -59,13 +61,21 @@ const router = createBrowserRouter([
     element: <LandingMarketplace/>
   },
   {
+    path: "order",
+    element: <OrdersPage/>
+  },
+  {
+    path: "admin/order",
+    element: <AdminDashboardOrderPage/>
+  },
+  {
+    path: "AdminOrderDetail/:id",
+    element: <AdminOrderDetail/>
+  },
+  {
     path: "*",
     element: <Page404/>
   },
-  {
-    path: "portfolio",
-    element: <PortfolioPage/>
-  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

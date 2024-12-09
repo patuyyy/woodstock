@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AdminNavbar from "../components/AdminNavbar";
+import { Link, useNavigate } from "react-router-dom";
 import NavbarB from "../components/NavbarB";
+import AdminNavbar from "../components/AdminNavbar";
 
 const ProfilePage = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -25,14 +25,6 @@ const ProfilePage = () => {
   const handleCancelSignOut = () => {
     setShowConfirmModal(false); // Close modal without sign out
   };
-
-  const handlePortfolio = () => {
-    navigate("/portfolio");
-  };
-
-  const handleShopCart = () => {
-    navigate("/cart");
-  }
 
   return (
     <div>
@@ -138,19 +130,19 @@ const ProfilePage = () => {
         <div className="w-full bg-black2 py-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto text-center">
             {/* Ongoing Order */}
-            <div className="flex flex-col items-center">
+            <Link to='/order' className="flex flex-col items-center hover:scale-105 transition-all duration-500">
               <span className="text-orange-500 text-4xl sm:text-5xl md:text-6xl">🔄</span>
               <p className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold">Ongoing Order</p>
-            </div>
+            </Link>
 
             {/* Shopping Cart */}
-            <div className="flex flex-col items-center cursor-pointer" onClick={handleShopCart}>
+            <Link to='/cart' className="flex flex-col items-center hover:scale-105 transition-all duration-500">
               <span className="text-orange-500 text-4xl sm:text-5xl md:text-6xl">🛒</span>
               <p className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold">Shopping Cart</p>
-            </div>
+            </Link>
 
             {/* Portfolio */}
-            <div className="flex flex-col items-center cursor-pointer" onClick={handlePortfolio}>
+            <div className="flex flex-col items-center">
               <span className="text-orange-500 text-4xl sm:text-5xl md:text-6xl">📄</span>
               <p className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold">Portfolio</p>
             </div>
