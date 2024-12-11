@@ -18,7 +18,7 @@ const AdminManagePorto = () => {
 
     const fetchOrders = async (userid) => {
         try {
-            const response = await fetch(`http://localhost:4003/order/accept/all`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/order/accept/all`);
             const data = await response.json();
 
             if (data.success) {

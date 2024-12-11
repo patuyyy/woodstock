@@ -18,7 +18,7 @@ const PortfolioPage = () => {
                     return;
                 }
 
-                const response = await fetch(`http://localhost:4003/order/acc/${accountId}`);
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/order/acc/${accountId}`);
                 const data = await response.json();
                 setTrees(data.data);
                 setLoading(false);

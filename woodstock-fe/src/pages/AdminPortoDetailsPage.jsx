@@ -16,7 +16,7 @@ const AdminPortoDetailsPage = () => {
 
     const fetchOrderDetails = async (orderid) => {
         try {
-            const response = await fetch(`http://localhost:4003/porto/order/${orderid}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/porto/order/${orderid}`);
             const data = await response.json();
 
             if (data.success) {

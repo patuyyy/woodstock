@@ -33,7 +33,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:4003/market/create", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/market/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

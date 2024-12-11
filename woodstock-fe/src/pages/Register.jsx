@@ -29,7 +29,7 @@ const Register = () => {
     formData.append('image', file);
 
     try {
-      const response = await fetch('http://localhost:4003/upload/upload', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/upload/upload`, {
         method: 'POST',
         body: formData,
       });

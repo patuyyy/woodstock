@@ -16,7 +16,7 @@ const OrderHistoryPage = () => {
 
     const fetchOrders = async (userid) => {
         try {
-            const response = await fetch(`http://localhost:4003/order/user/${userid}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/order/user/${userid}`);
             const data = await response.json();
 
             if (data.success) {

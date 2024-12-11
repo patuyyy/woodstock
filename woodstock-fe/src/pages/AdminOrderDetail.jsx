@@ -17,7 +17,7 @@ const AdminOrderDetail = () => {
 
     const fetchOrderDetail = async (orderId) => {
         try {
-            const response = await fetch(`http://localhost:4003/order/${orderId}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/order/${orderId}`);
             const data = await response.json();
 
             if (data.success) {
@@ -40,7 +40,7 @@ const AdminOrderDetail = () => {
     const handleConfirmEdit = async () => {
         setUpdating(true);
         try {
-            const response = await fetch(`http://localhost:4003/order/edit/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/order/edit/${id}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status }),
