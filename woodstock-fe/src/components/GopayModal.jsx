@@ -35,7 +35,7 @@ const GopayModal = ({ isOpen, onClose }) => {
         formData.append('image', file);
 
         try {
-            const response = await fetch('http://localhost:4003/upload/upload', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/upload/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -54,7 +54,7 @@ const GopayModal = ({ isOpen, onClose }) => {
 
     const createOrder = async (accountId, treeId, proof) => {
         try {
-            const response = await fetch('http://localhost:4003/order/create', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/order/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -20,7 +20,7 @@ const DetailsPage = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:4003/market/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/market/${id}`);
         const data = await response.json();
 
         if (data.success) {
@@ -161,12 +161,9 @@ const DetailsPage = () => {
               </span>
             </div>
             <div className="flex gap-4 mt-4 sm:mt-0">
-              <button className="bg-green-500 px-6 py-2 rounded text-white font-bold hover:bg-green-600 transition-all">
-                Buy Now
-              </button>
               <button
                 onClick={(e) => handleAddToCart(product, e)}
-                className="bg-gray-700 px-6 py-2 rounded text-white font-bold hover:bg-gray-600 transition-all"
+                className="bg-lightOrange px-6 py-2 rounded text-white font-bold hover:bg-gray-600 transition-all"
               >
                 Add to Cart
               </button>

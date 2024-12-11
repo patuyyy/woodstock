@@ -20,7 +20,7 @@ const AdminPortoUpdatePage = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:4003/porto/create', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/porto/create`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

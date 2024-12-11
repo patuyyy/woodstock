@@ -30,7 +30,7 @@ const Marketplace = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:4003/market/");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/market/`);
         const data = await response.json();
 
         if (data.success) {
@@ -136,8 +136,8 @@ const Marketplace = () => {
 
       <div className="flex flex-col min-h-screen bg-darkwood text-white1">
         <div className="flex flex-1">
-          <aside className="bg-white2 dark:bg-black2 ease-in-out transition-all duration-500 w-1/5 p-4">
-            <h2 className="font-bold text-leafGreen text-xl mb-4">Categories</h2>
+          <aside className="bg-white2 dark:bg-black2 ease-in-out transition-all duration-500 lg:w-1/5 sm:w-full w-1/3 p-4">
+            <h2 className="font-bold text-leafGreen text-sm sm:text-xl mb-4">Categories</h2>
             <ul>
               {categories.map((category) => (
                 <li
@@ -146,7 +146,7 @@ const Marketplace = () => {
                   className={`cursor-pointer text-lg py-2 ${selectedCategory === category
                       ? "font-bold text-lightOrange"
                       : "text-black dark:text-gray-300"
-                    } hover:text-lightGreen transition-all duration-300`}
+                    } hover:text-lightGreen transition-all duration-300 text-sm sm:text-xl`}
                 >
                   {category}
                 </li>
@@ -155,11 +155,11 @@ const Marketplace = () => {
 
             {/* Sorting Section */}
             <div className="mt-6">
-              <h3 className="font-bold text-leafGreen text-lg mb-2">
+              <h3 className="font-bold text-leafGreen text-sm sm:text-xl mb-2 ">
                 Sort By
               </h3>
               <select
-                className="w-full p-2 rounded-md bg-white dark:bg-black3 text-black dark:text-white border border-gray-300 dark:border-gray-600"
+                className="w-1/2 p-2 rounded-md text-sm sm:text-xl sm:w-full bg-white dark:bg-black3 text-black dark:text-white border border-gray-300 dark:border-gray-600"
                 value={sortCriteria}
                 onChange={(e) => setSortCriteria(e.target.value)}
               >
@@ -220,7 +220,6 @@ const Marketplace = () => {
       </div>
       <Footer/>
     </div>
-    
   );
 };
 
