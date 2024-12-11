@@ -29,7 +29,7 @@ const ProfilePage = () => {
   return (
     <div>
       {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
-      <div className="min-h-screen bg-white dark:bg-black text-white flex flex-col ease-in-out transition-all duration-500">
+      <div className="min-h-screen bg-white dark:bg-black text-white flex flex-col ease-in-out transition-all duration-500 pt-20">
         {/* Main Content */}
         <div className="w-full mx-auto p-8 flex flex-col flex-grow">
           {/* Top Section */}
@@ -142,16 +142,16 @@ const ProfilePage = () => {
             </Link>
 
             {/* Portfolio */}
-            <div className="flex flex-col items-center">
+            <Link to='/portofolio' className="flex flex-col items-center hover:scale-105 transition-all duration-500">
               <span className="text-orange-500 text-4xl sm:text-5xl md:text-6xl">📄</span>
               <p className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold">Portfolio</p>
-            </div>
+            </Link>
 
             {/* Order History */}
-            <div className="flex flex-col items-center">
+            <Link to='/history' className="flex flex-col items-center hover:scale-105 transition-all duration-500">
               <span className="text-orange-500 text-4xl sm:text-5xl md:text-6xl">⏳</span>
               <p className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold">Order History</p>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

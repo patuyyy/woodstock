@@ -60,7 +60,7 @@ const Login = () => {
     <div>
       <Navbar />
 
-      <div className="min-h-screen bg-leafGreen dark:bg-black1 flex justify-center flex-1 transition-all duration-500">
+      <div className="min-h-screen bg-leafGreen dark:bg-black1 flex justify-center flex-1 transition-all duration-500 pt-20">
         <div className="lg:w-1/2 xl:w-7/12 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">

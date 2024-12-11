@@ -3,11 +3,15 @@ import { useState, useEffect } from "react";
 function Toggle() {
   // Initialize darkMode state with localStorage value or default to false
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode === 'true';
   });
-  
-  if(localStorage.getItem('darkMode') == null){
-    localStorage.setItem('darkMode', true);
+
+  // Apply the initial dark mode class immediately
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
   }
 
   const toggleDarkMode = () => {

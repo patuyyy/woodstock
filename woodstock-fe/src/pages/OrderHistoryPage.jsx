@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavbarB from '../components/NavbarB';
 
-const OrdersPage = () => {
+const OrderHistoryPage = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,7 +20,7 @@ const OrdersPage = () => {
             const data = await response.json();
 
             if (data.success) {
-                const pendingOrders = data.data.filter(order => order.paymentstatus === 'PENDING');
+                const pendingOrders = data.data.filter(order => order.paymentstatus === 'ACCEPTED' || order.paymentstatus === 'CANCELLED');
                 setOrders(pendingOrders);
             } else {
                 setError(data.message || 'Failed to fetch orders');
@@ -57,10 +57,10 @@ const OrdersPage = () => {
         <div>
             <NavbarB />
             <div className="p-6 bg-white1 dark:bg-black2 min-h-screen pt-24">
-                <h1 className="text-2xl font-semibold text-black dark:text-white">Pending Orders</h1>
+                <h1 className="text-2xl font-semibold text-black dark:text-white">Completed Orders</h1>
                 <div className="mt-6 text-black dark:text-white">
                     {orders.length === 0 ? (
-                        <p>No pending orders found.</p>
+                        <p>No completed orders found.</p>
                     ) : (
                         <ul className="space-y-4">
                             {orders.map((order) => (
@@ -86,4 +86,4 @@ const OrdersPage = () => {
     );
 };
 
-export default OrdersPage;
+export default OrderHistoryPage;

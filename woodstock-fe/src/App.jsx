@@ -9,7 +9,7 @@ export default function App() {
   return (
     <div className="bg-black min-h-screen">
       <Navbar/>
-      <div>
+      <div className=" bg-black pt-16">
         <LandingPage/>
       </div>
     </div>

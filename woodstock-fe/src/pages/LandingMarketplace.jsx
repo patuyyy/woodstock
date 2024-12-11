@@ -85,7 +85,7 @@ const LandingMarketplace = () => {
   return (
     <div>
       <Navbar/>
-      <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500">
+      <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500 pt-20">
         <header className="bg-white dark:bg-black1 p-5 transition-all ease-in-out duration-500">
           <h1 className="text-4xl font-title text-start text-black2 dark:text-white mb-2 ease-in-out transition-all duration-500">
             Welcome {userInfo.username}, to{" "}

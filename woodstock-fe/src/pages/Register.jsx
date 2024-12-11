@@ -18,7 +18,7 @@ const Register = () => {
   const [success, setSuccess] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false); // New state for password visibility
   const navigate = useNavigate();
-  const [country, setSelectedCountry] = useState("+1");
+  const [country, setSelectedCountry] = useState("Indonesia");
   const [isAgreed, setIsAgreed] = useState(false); // New state for checkbox
 
 
@@ -159,7 +159,7 @@ const Register = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen bg-leafGreen dark:bg-black1 flex justify-center flex-1 transition-all duration-500">
+      <div className="min-h-screen bg-leafGreen dark:bg-black1 flex justify-center flex-1 transition-all duration-500 pt-20">
         <div className="lg:w-4/6 xl:w-7/12 p-6 sm:p-12">
           <div className="flex flex-col items-start">
             <div className="text-left">
