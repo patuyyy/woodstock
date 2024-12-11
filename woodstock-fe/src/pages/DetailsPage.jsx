@@ -73,7 +73,7 @@ const DetailsPage = () => {
     <div className="min-h-screen bg-white1 dark:bg-black1 text-white transition-all duration-500">
       {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
       <div className="max-w-6xl mx-auto py-8 px-4">
-        <header className="text-center text-black dark:text-white text-3xl font-bold mb-6 transition-all duration-500">
+        <header className="text-center text-black dark:text-white text-3xl font-bold mb-6 transition-all duration-500 pt-20">
           PRODUCT DETAILS
         </header>
         <div className="flex flex-col lg:flex-row gap-6">
@@ -152,8 +152,8 @@ const DetailsPage = () => {
         </div>
 
         {/* Bagian Footer */}
-        <div className="mt-8 bg-gray-800 p-6 rounded-lg">
-          <div className="flex flex-col sm:flex-row items-center justify-between">
+        <div className="mt-8 bg-gray-800 p-6 rounded-lg ease-in-out duration-500 transition-all">
+          <div className="flex flex-col sm:flex-row items-center justify-between ease-in-out duration-500 transition-all">
             <div className="text-lg text-gray-400">
               Stock:{" "}
               <span className="font-bold text-white">

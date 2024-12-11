@@ -22,7 +22,8 @@ const AdminDashboardOrderPage = () => {
             const data = await response.json();
 
             if (data.success) {
-                setOrders(data.data);
+                const sortedOrders = data.data.sort((a, b) => a.id - b.id); // Sort by ID
+                setOrders(sortedOrders);
             } else {
                 setError(data.message || 'Failed to fetch orders');
             }

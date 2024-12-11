@@ -18,7 +18,7 @@ const Marketplace = () => {
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
-    const navbarHeight = 80;
+    const navbarHeight = 170;
     if (element) {
       window.scrollTo({
         top: element.offsetTop - navbarHeight,
@@ -101,7 +101,7 @@ const Marketplace = () => {
   return (
     <div className="bg-white2 dark:bg-black2">
       {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
-      <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500">
+      <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500 pt-20">
         <header className="bg-white dark:bg-black1 p-5 transition-all ease-in-out duration-500">
           <h1 className="text-4xl font-title text-start text-black2 dark:text-white mb-2 ease-in-out transition-all duration-500">
             Welcome back {userInfo.username}, to{" "}

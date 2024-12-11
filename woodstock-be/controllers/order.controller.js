@@ -49,7 +49,7 @@ class OrderController {
   async getById(req, res) {
     const { id } = req.params;
     try {
-        const query = `
+      const query = `
             SELECT 
                 orders.*,
                 account.name AS accountname, 
@@ -63,24 +63,22 @@ class OrderController {
             WHERE 
                 orders.id = $1;
         `;
-        const user = await db.pool.query(query, [id]); // Use parameterized query to avoid SQL injection
+      const user = await db.pool.query(query, [id]); // Use parameterized query to avoid SQL injection
 
-        const msg = user.rows.length === 0
-            ? "Order not found"
-            : "Order retrieved successfully";
+      const msg = user.rows.length === 0
+        ? "Order not found"
+        : "Order retrieved successfully";
 
-        if (user.rows.length === 0) {
-            res.status(400).send(buildResp(msg, null));
-        } else {
-            res.status(200).send(buildResp(msg, user.rows[0]));
-        }
+      if (user.rows.length === 0) {
+        res.status(400).send(buildResp(msg, null));
+      } else {
+        res.status(200).send(buildResp(msg, user.rows[0]));
+      }
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send(buildResp("Server error", null));
+      console.error(err.message);
+      res.status(500).send(buildResp("Server error", null));
     }
-}
-
-
+  }
 
   async getByUserId(req, res) {
     const { userid } = req.params;
@@ -126,6 +124,65 @@ class OrderController {
       res.status(500).send(buildResp("An error occurred while updating the order", null));
     }
   }
+
+  async getAcceptedOrder(req, res) {
+    const { userid } = req.params;
+    try {
+      const user = await db.pool.query(
+        `SELECT o.id, o.accountid, o.treeid, o.paymentstatus, o.datepurchased, t.name AS treename, t.photo AS treephoto
+                FROM orders o
+                JOIN trees t ON o.treeid = t.id
+                WHERE o.accountid = $1 AND o.paymentstatus = 'ACCEPTED';`, [userid]
+      );
+
+      const msg = user.rows.length === 0
+        ? "Order not found"
+        : "Orders retrieved successfully";
+
+      res.status(user.rows.length === 0 ? 400 : 200).send(buildResp(msg, user.rows));
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send(buildResp("An error occurred", [])); // Send empty array if error occurs
+    }
+  }
+
+  async getAllAcceptedOrder(req, res) {
+    try {
+      const user = await db.pool.query(
+        `SELECT 
+          o.id, 
+          o.accountid, 
+          o.treeid, 
+          o.paymentstatus, 
+          o.datepurchased, 
+          t.name AS treename, 
+          t.photo AS treephoto, 
+          a.name AS accountname
+        FROM 
+          orders o
+        JOIN 
+          trees t ON o.treeid = t.id
+        JOIN 
+          account a ON o.accountid = a.id  -- Ensure the correct relationship
+        WHERE 
+          o.paymentstatus = 'ACCEPTED';
+        `
+      );
+
+      const msg = user.rows.length === 0
+        ? "Order not found"
+        : "Orders retrieved successfully";
+
+      res.status(user.rows.length === 0 ? 400 : 200).send(buildResp(msg, user.rows));
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send(buildResp("An error occurred", [])); // Send empty array if error occurs
+    }
+  }
+
+
 
 }
 

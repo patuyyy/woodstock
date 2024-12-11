@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 const GopayModal = ({ isOpen, onClose }) => {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
+    const [photo, setPhoto] = useState(null);
     const taxRate = 0.1;
 
     // Calculate totals
@@ -11,64 +13,91 @@ const GopayModal = ({ isOpen, onClose }) => {
     const total = subtotal + tax;
 
     // Retrieve user info from local storage
-    const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {
-        username: "Guest",
-    };
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")) || { username: "Guest" };
 
     useEffect(() => {
-        // Fetch cart data from local storage and group items by ID
         const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-        const updatedCart = storedCart.reduce((acc, product) => {
+        const groupedCart = storedCart.reduce((acc, product) => {
             const existingProduct = acc.find(item => item.id === product.id);
             if (existingProduct) {
                 existingProduct.qty += 1;
             } else {
-                product.qty = 1;
-                acc.push(product);
+                acc.push({ ...product, qty: 1 });
             }
             return acc;
         }, []);
-        setCart(updatedCart);
+        setCart(groupedCart);
     }, []);
 
-    const createOrder = async (accountId, treeId) => {
-        setLoading(true);
+    const handlePhotoUpload = async (file) => {
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            const response = await fetch('http://localhost:4003/upload/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) throw new Error('Failed to upload photo');
+
+            const photoUrl = await response.json();
+            return photoUrl;
+        } catch (error) {
+            console.error('Photo upload failed:', error);
+            throw error;
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    const createOrder = async (accountId, treeId, proof) => {
         try {
             const response = await fetch('http://localhost:4003/order/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ accountId, treeId }),
+                body: JSON.stringify({ accountId, treeId, proof }),
             });
 
-            if (response.ok) {
-                const result = await response.json();
-                localStorage.removeItem('cart');
-                window.location.reload();
-                onClose();  // Close the modal after success
-            } else {
-                console.log("error")
-            }
+            if (!response.ok) throw new Error('Order creation failed');
         } catch (error) {
             console.error('Error creating order:', error);
+        }
+    };
+
+    const handleOrderCreation = async () => {
+        setLoading(true);
+        try {
+            let photoUrl = null;
+            if (photo) {
+                photoUrl = await handlePhotoUpload(photo);
+            }
+
+            for (const product of cart) {
+                for (let i = 0; i < product.qty; i++) {
+                    await createOrder(userInfo.id, product.id, photoUrl);
+                }
+            }
+
+            localStorage.removeItem('cart');
+            window.location.reload();
+            onClose();
+        } catch (error) {
+            console.error('Order process failed:', error);
         } finally {
             setLoading(false);
         }
     };
 
-    const handleOrderCreation = () => {
-        cart.forEach(product => {
-            createOrder(userInfo.id, product.id); // Send each product in the cart
-        });
-    };
-
-    if (!isOpen) return null; // Don't render if modal is closed
+    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white dark:bg-black3 p-6 rounded-lg shadow-md w-96">
-                <h2 className="text-2xl font-title text-black dark:text-white mb-4">Gopay Invoice</h2>
+                <h2 className="text-2xl font-title text-black dark:text-white mb-4">BNI Invoice</h2>
                 <div className="mb-4">
                     <h3 className="text-lg text-black dark:text-white mb-2">Gopay Phone Number:</h3>
                     <p className="text-l text-black dark:text-white">081283622759 (Audrina)</p>
@@ -97,10 +126,18 @@ const GopayModal = ({ isOpen, onClose }) => {
                     </p>
                 </div>
                 <div className="mt-6">
+                    <input
+                        className="mb-4 w-full px-5 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 dark:bg-black4 dark:text-white font-title placeholder-gray-500 text-sm lg:text-base focus:outline-none focus:border-gray-400 focus:bg-white ease-in-out transition-all duration-500"
+                        type="file"
+                        accept="image/*"
+                        aria-label="Upload photo"
+                        onChange={(e) => setPhoto(e.target.files[0])}
+                    />
                     <button
                         onClick={handleOrderCreation}
-                        disabled={loading}
-                        className={`w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={!photo || loading || isUploading}
+                        className={`w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all ${!photo || loading || isUploading ? 'cursor-not-allowed opacity-50' : ''
+                            }`}
                     >
                         {loading ? 'Processing...' : 'I Have Paid!'}
                     </button>

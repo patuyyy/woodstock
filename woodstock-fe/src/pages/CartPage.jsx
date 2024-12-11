@@ -49,7 +49,7 @@ const CartPage = () => {
   return (
     <div>
       {userInfo.isadmin ? <AdminNavbar /> : <NavbarB />}
-      <div className="p-6 bg-white dark:bg-black1 min-h-screen">
+      <div className="p-6 bg-white dark:bg-black1 min-h-screen pt-24">
         <h1 className="text-3xl font-title text-black dark:text-white mb-4">Your Cart</h1>
 
         {cart.length === 0 ? (

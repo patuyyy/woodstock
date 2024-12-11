@@ -16,6 +16,12 @@ import LandingMarketplace from './pages/LandingMarketplace.jsx';
 import OrdersPage from './pages/OrdersPage.jsx';
 import AdminDashboardOrderPage from './pages/AdminDashboardOrderPage.jsx';
 import AdminOrderDetail from './pages/AdminOrderDetail.jsx';
+import OrderHistoryPage from './pages/OrderHistoryPage.jsx';
+import PortfolioPage from './pages/PortofolioPage.jsx';
+import AdminManagePorto from './pages/AdminManagePorto.jsx';
+import AdminPortoDetailsPage from './pages/AdminPortoDetailsPage.jsx';
+import AdminPortoUpdatePage from './pages/AdminPortoUpdatePage.jsx';
+import PortofolioDetailsPage from './pages/PortofolioDetailsPage.jsx';
 
 
 // Create a root element
@@ -65,12 +71,36 @@ const router = createBrowserRouter([
     element: <OrdersPage/>
   },
   {
+    path: "history",
+    element: <OrderHistoryPage/>
+  },
+  {
+    path: "portofolio",
+    element: <PortfolioPage/>
+  },
+  {
+    path: "portofolio/:orderid",
+    element: <PortofolioDetailsPage/>
+  },
+  {
     path: "admin/order",
     element: <AdminDashboardOrderPage/>
   },
   {
+    path: "admin/portofolio",
+    element: <AdminManagePorto/>
+  },
+  {
+    path: "admin/portofolio/:orderid",
+    element: <AdminPortoDetailsPage/>
+  },
+  {
     path: "AdminOrderDetail/:id",
     element: <AdminOrderDetail/>
+  },
+  {
+    path: "admin/portofolio/update/:orderid",
+    element: <AdminPortoUpdatePage/>
   },
   {
     path: "*",

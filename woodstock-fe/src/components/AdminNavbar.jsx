@@ -33,11 +33,14 @@ function AdminNavbar() {
         {/* User Info */}
         {userInfo && (
           <div className="flex items-center space-x-4">
-            <Link to="/admin" className="hover:text-lightOrange dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
-                Admin Page
+            <Link to="/admin" className="hover:text-darkwood bg-lightOrange rounded-lg dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+                Admin Add Items
             </Link>
-            <Link to="/admin/order" className="hover:text-lightOrange dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
-                Admin Orders Page
+            <Link to="/admin/order" className="hover:text-darkwood bg-lightOrange rounded-lg dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+                Admin Manage Orders 
+            </Link>
+            <Link to="/admin/portofolio" className="hover:text-darkwood bg-lightOrange rounded-lg dark:hover:text-lightGreen text-black dark:text-white hover:scale-110 transition-all duration-500 p-2 font-title text-xl">
+                Manage Portofolios
             </Link>
             <Link to='/profile' className="text-xl text-black font-title dark:text-white">{userInfo.username}</Link>
             <Link

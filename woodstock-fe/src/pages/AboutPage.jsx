@@ -8,7 +8,7 @@ const AboutPage = () => {
   return (
     <div>
         <Navbar/>
-      <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500">
+      <section className="bg-white dark:bg-black1 transition-all ease-in-out duration-500 pt-16">
         <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
           <div className="mr-auto place-self-center lg:col-span-7">
           <h1 className="max-w-2xl text-xl font-title leading-none tracking-tight md:text-2xl xl:text-3xl dark:text-white">
