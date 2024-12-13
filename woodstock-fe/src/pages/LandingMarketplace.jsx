@@ -12,14 +12,18 @@ const LandingMarketplace = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [loading, setLoading] = useState(true); // State for loading
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`${import.meta.env.VITE_API_URL}/market/`);
         const data = await response.json();
 
         if (data.success) {
+          setLoading(false);
           const productData = data.data.map((item) => ({
             id: item.id,
             name: item.name,
@@ -118,10 +122,20 @@ const LandingMarketplace = () => {
         </div>
       </section>
 
+      {loading ? (
+        <div className="flex justify-center items-center h-screen bg-white2 dark:bg-black2">
+          <div className="flex flex-col justify-center items-center text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-lightOrange border-solid"></div>
+            <p className="mt-4 text-xl text-lightOrange font-bold">
+              Loading Products...
+            </p>
+          </div>
+        </div>
+      ) : (
       <div className="flex flex-col min-h-screen bg-darkwood text-white1">
         <div className="flex flex-1">
-          <aside className="bg-white2 dark:bg-black2 ease-in-out transition-all duration-500 w-1/5 p-4">
-            <h2 className="font-bold text-leafGreen text-xl mb-4">Categories</h2>
+          <aside className="bg-white2 dark:bg-black2 ease-in-out transition-all duration-500 lg:w-1/5 sm:w-full w-1/3 p-4">
+            <h2 className="font-bold text-leafGreen text-sm sm:text-xl mb-4">Categories</h2>
             <ul>
               {categories.map((category) => (
                 <li
@@ -131,7 +145,7 @@ const LandingMarketplace = () => {
                     selectedCategory === category
                       ? "font-bold text-lightOrange"
                       : "text-black dark:text-gray-300"
-                  } hover:text-lightGreen transition-all duration-300`}
+                  } hover:text-lightGreen transition-all duration-300 text-sm sm:text-xl`}
                 >
                   {category}
                 </li>
@@ -150,7 +164,7 @@ const LandingMarketplace = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-
+            
             <div
               id="our-products"
               className="text-2xl text-black dark:text-white font-title mb-5"
@@ -172,15 +186,13 @@ const LandingMarketplace = () => {
                     <h3 className="text-xl font-title text-gray-900 dark:text-white mb-2">
                       {product.name}
                     </h3>
-                    <p className="text-gray-600 font-title text-lg dark:text-gray-300">
+                    <p className="text-gray-600 font-title text-lg dark:text-gray-300 mb-4">
                       Rp {product.price ? product.price.toFixed(2) : "N/A"}
                     </p>
-                    <button
-                      onClick={(e) => handleAddToCart(product, e)}
-                      className="mt-3 px-4 py-2 bg-lightOrange text-white text-sm font-medium rounded-md hover:bg-darkOrange transition-all duration-500"
+                    <Link to='/login' className="mt-7 px-4 py-2 bg-lightOrange  text-sm font-medium rounded-md hover:bg-darkOrange transition-all duration-500"
                     >
                       Login to see details
-                    </button>
+                    </Link>
                   </div>
                 </Link>
               ))}
@@ -188,6 +200,7 @@ const LandingMarketplace = () => {
           </main>
         </div>
       </div>
+      )}
     </div>
   );
 };

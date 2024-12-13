@@ -40,8 +40,13 @@ const PortofolioDetailsPage = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-white1 dark:bg-darkwood text-white flex items-center justify-center">
-                Loading...
+            <div className="flex justify-center items-center h-screen bg-white2 dark:bg-black2">
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-lightOrange border-solid"></div>
+                    <p className="mt-4 text-xl text-lightOrange font-bold">
+                        Loading Products...
+                    </p>
+                </div>
             </div>
         );
     }
@@ -96,8 +101,8 @@ const PortofolioDetailsPage = () => {
                                     <div className="flex border-b border-black dark:border-gray-600 mb-4 transition-all duration-500">
                                         <button
                                             className={`px-4 py-2 ${activeTab === 'details'
-                                                    ? 'text-black dark:text-lightGreen border-b-2 border-black dark:border-lightGreen transition-all duration-500'
-                                                    : 'text-gray-400'
+                                                ? 'text-black dark:text-lightGreen border-b-2 border-black dark:border-lightGreen transition-all duration-500'
+                                                : 'text-gray-400'
                                                 }`}
                                             onClick={() => setActiveTab('details')}
                                         >
@@ -105,8 +110,8 @@ const PortofolioDetailsPage = () => {
                                         </button>
                                         <button
                                             className={`px-4 py-2 ${activeTab === 'rating'
-                                                    ? 'text-black dark:text-lightGreen border-b-2 border-black dark:border-lightGreen transition-all duration-500'
-                                                    : 'text-gray-400'
+                                                ? 'text-black dark:text-lightGreen border-b-2 border-black dark:border-lightGreen transition-all duration-500'
+                                                : 'text-gray-400'
                                                 }`}
                                             onClick={() => setActiveTab('rating')}
                                         >

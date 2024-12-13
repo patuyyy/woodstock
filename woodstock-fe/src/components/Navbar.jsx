@@ -121,25 +121,25 @@ function Navbar() {
         <div className="lg:hidden mt-4 space-y-4 text-black dark:text-white">
           <Link
             to="/"
-            className="block hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl"
+            className="block hover:text-lightOrange dark:hover:text-lightGreen transition-all duration-500 p-2 font-title text-xl"
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="block hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl"
+            className="block hover:text-lightOrange dark:hover:text-lightGreen transition-all duration-500 p-2 font-title text-xl"
           >
             About
           </Link>
           <Link
             to="/market"
-            className="block hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl"
+            className="block hover:text-lightOrange dark:hover:text-lightGreen transition-all duration-500 p-2 font-title text-xl"
           >
             Market
           </Link>
           <Link
             to="/contact"
-            className="block hover:text-lightOrange dark:hover:text-lightGreen hover:scale-110 transition-all duration-500 p-2 font-title text-xl"
+            className="block hover:text-lightOrange dark:hover:text-lightGreen transition-all duration-500 p-2 font-title text-xl"
           >
             Contact
           </Link>

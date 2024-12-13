@@ -47,33 +47,31 @@ const PortfolioPage = () => {
     return (
         <div>
             <NavbarB />
-            <div className="bg-gray-900 min-h-screen text-white p-8 pt-28">
-                <h1 className="text-3xl font-bold mb-6">MY TREES PORTOFOLIO</h1>
+            <div className="bg-white1 dark:bg-black1 min-h-screen text-white p-8 pt-28 transition-all duration-500">
+                <h1 className="text-3xl text-black dark:text-white font-bold mb-6">MY TREES PORTOFOLIO</h1>
                 <div className="grid grid-cols-1 gap-6">
                     {trees.map((tree, index) => (
-                        <div
+                        <Link to={`/portofolio/${tree.id}`}
                             key={tree.id}
-                            className="bg-gray-800 rounded-lg shadow-md overflow-hidden flex items-center"
+                            className="bg-white2 shadow-lg hover:shadow-2xl dark:bg-black2 rounded-lg overflow-hidden flex hover:dark:bg-black1 transition-all duration-300 items-center"
                         >
-                            {/* Left: Tree photo */}
                             <img
                                 src={tree.treephoto}
                                 alt={tree.treename}
                                 className="w-40 h-40 object-cover"
                             />
-                            {/* Right: Tree information */}
                             <div className="p-4 flex-1">
-                                <h2 className="text-lg font-bold">
+                                <h2 className="text-lg font-bold text-black dark:text-white">
                                     Share {index + 1}: {tree.treename}
                                 </h2>
-                                <p className="text-sm text-gray-400">
+                                <p className="text-sm text-gray-400 mb-4">
                                     Date Purchased: {new Date(tree.datepurchased).toLocaleDateString()}
                                 </p>
-                                <Link to={`/portofolio/${tree.id}`} className="mt-4 bg-oren hover:bg-biru text-white px-4 py-2 rounded">
+                                <Link to={`/portofolio/${tree.id}`} className="mt-4 bg-oren bg-lightOrange hover:bg-darkOrange transition-all duration-500 text-white px-4 py-2 rounded">
                                     Details
                                 </Link>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
