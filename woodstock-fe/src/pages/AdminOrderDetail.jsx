@@ -88,10 +88,10 @@ const AdminOrderDetail = () => {
                     <p><strong>Tree Name:</strong> {order.treename}</p>
                     <p><strong>Date Purchased:</strong> {new Date(order.datepurchased).toLocaleString()}</p>
                     <p>
-                        <strong>Proof:</strong>{' '}
+                        <strong>Payment Proof: </strong>{' '}
                         {order.proof ? (
                             <a href={order.proof} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                                View Proof
+                                View Payment Proof
                             </a>
                         ) : (
                             'No proof uploaded'

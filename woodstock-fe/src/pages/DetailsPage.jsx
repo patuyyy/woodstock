@@ -44,9 +44,14 @@ const DetailsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white1 dark:bg-darkwood text-white flex items-center justify-center">
-        Loading...
-      </div>
+      <div className="flex justify-center items-center h-screen bg-white2 dark:bg-black2">
+          <div className="flex flex-col justify-center items-center text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-lightOrange border-solid"></div>
+            <p className="mt-4 text-xl text-lightOrange font-bold">
+              Loading Products...
+            </p>
+          </div>
+        </div>
     );
   }
 

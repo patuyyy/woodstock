@@ -14,7 +14,8 @@ const Marketplace = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortCriteria, setSortCriteria] = useState("none"); // State for sorting criteria
+  const [sortCriteria, setSortCriteria] = useState("none");
+  const [loading, setLoading] = useState(true); // State for loading
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -30,6 +31,7 @@ const Marketplace = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true); // Start loading
         const response = await fetch(`${import.meta.env.VITE_API_URL}/market/`);
         const data = await response.json();
 
@@ -53,6 +55,8 @@ const Marketplace = () => {
         }
       } catch (error) {
         console.error("An error occurred:", error);
+      } finally {
+        setLoading(false); // End loading
       }
     };
 
@@ -134,91 +138,89 @@ const Marketplace = () => {
         </div>
       </section>
 
-      <div className="flex flex-col min-h-screen bg-darkwood text-white1">
-        <div className="flex flex-1">
-          <aside className="bg-white2 dark:bg-black2 ease-in-out transition-all duration-500 lg:w-1/5 sm:w-full w-1/3 p-4">
-            <h2 className="font-bold text-leafGreen text-sm sm:text-xl mb-4">Categories</h2>
-            <ul>
-              {categories.map((category) => (
-                <li
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`cursor-pointer text-lg py-2 ${selectedCategory === category
-                      ? "font-bold text-lightOrange"
-                      : "text-black dark:text-gray-300"
-                    } hover:text-lightGreen transition-all duration-300 text-sm sm:text-xl`}
-                >
-                  {category}
-                </li>
-              ))}
-            </ul>
-
-            {/* Sorting Section */}
-            <div className="mt-6">
-              <h3 className="font-bold text-leafGreen text-sm sm:text-xl mb-2 ">
-                Sort By
-              </h3>
-              <select
-                className="w-1/2 p-2 rounded-md text-sm sm:text-xl sm:w-full bg-white dark:bg-black3 text-black dark:text-white border border-gray-300 dark:border-gray-600"
-                value={sortCriteria}
-                onChange={(e) => setSortCriteria(e.target.value)}
-              >
-                <option value="none">None</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="name-asc">Name: A to Z</option>
-                <option value="name-desc">Name: Z to A</option>
-              </select>
-            </div>
-          </aside>
-
-          <main className="flex-grow bg-white1 dark:bg-black4 p-6 ease-in-out transition-all duration-500">
-            {/* Search Bar */}
-            <div className="mb-6">
-              <input
-                type="text"
-                placeholder="Search for a tree..."
-                className="w-full p-3 rounded-md bg-white dark:bg-black3 text-black dark:text-white border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-lightGreen"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-
-            <div id="our-products" className="text-2xl font-title mb-5">
-              Our Products
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-              {sortedProducts.map((product) => (
-                <Link
-                  key={product.id}
-                  to={`/details/${product.id}`}
-                  className="bg-white2 hover:scale-105 dark:bg-black3 rounded-lg overflow-hidden shadow-md hover:shadow-lg duration-500 ease-in-out border border-gray-200 dark:border-gray-700 p-4 transition-all"
-                >
-                  <div
-                    className="h-40 w-full bg-center bg-cover rounded-xl"
-                    style={{ backgroundImage: `url(${product.photo})` }}
-                  ></div>
-                  <div className="p-4">
-                    <h3 className="text-xl font-title text-gray-900 dark:text-white mb-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-600 font-title text-lg dark:text-gray-300">
-                      Rp {product.price ? product.price.toFixed(2) : "N/A"}
-                    </p>
-                    <button
-                      onClick={(e) => handleAddToCart(product, e)}
-                      className="mt-3 px-4 py-2 bg-lightOrange text-white text-sm font-medium rounded-md hover:bg-darkOrange transition-all duration-500"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </main>
+      {loading ? (
+        <div className="flex justify-center items-center h-screen bg-white2 dark:bg-black2">
+          <div className="flex flex-col justify-center items-center text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-lightOrange border-solid"></div>
+            <p className="mt-4 text-xl text-lightOrange font-bold">
+              Loading Products...
+            </p>
+          </div>
         </div>
-      </div>
-      <Footer/>
+      ) : (
+        <div className="flex flex-col min-h-screen bg-darkwood text-white1">
+          <div className="flex flex-1">
+            <aside className="bg-white2 dark:bg-black2 ease-in-out transition-all duration-500 p-4">
+              {/* Category and Sorting Section */}
+              <h2 className="font-bold text-leafGreen text-sm sm:text-xl mb-4">
+                Categories
+              </h2>
+              <ul>
+                {categories.map((category) => (
+                  <li
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`cursor-pointer text-lg py-2 ${selectedCategory === category
+                        ? "font-bold text-lightOrange"
+                        : "text-black dark:text-gray-300"
+                      } hover:text-lightGreen transition-all duration-300 text-sm sm:text-xl`}
+                  >
+                    {category}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6">
+                <h3 className="font-bold text-leafGreen text-sm sm:text-xl mb-2">
+                  Sort By
+                </h3>
+                <select
+                  className="w-1/2 p-2 rounded-md text-sm sm:text-xl sm:w-full bg-white dark:bg-black3 text-black dark:text-white border border-gray-300 dark:border-gray-600"
+                  value={sortCriteria}
+                  onChange={(e) => setSortCriteria(e.target.value)}
+                >
+                  <option value="none">None</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="name-asc">Name: A to Z</option>
+                  <option value="name-desc">Name: Z to A</option>
+                </select>
+              </div>
+            </aside>
+            <main id="our-products" className="flex-grow bg-white1 dark:bg-black4 p-6 ease-in-out transition-all duration-500">
+              <div className="text-2xl font-title mb-5 text-black dark:text-white">Our Products</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                {sortedProducts.map((product) => (
+                  <Link
+                    key={product.id}
+                    to={`/details/${product.id}`}
+                    className="bg-white2 hover:scale-105 dark:bg-black3 rounded-lg overflow-hidden shadow-md hover:shadow-lg duration-500 ease-in-out border border-gray-200 dark:border-gray-700 p-4 transition-all"
+                  >
+                    <div
+                      className="h-40 w-full bg-center bg-cover rounded-xl"
+                      style={{ backgroundImage: `url(${product.photo})` }}
+                    ></div>
+                    <div className="p-4">
+                      <h3 className="text-xl font-title text-gray-900 dark:text-white mb-2">
+                        {product.name}
+                      </h3>
+                      <p className="text-gray-600 font-title text-lg dark:text-gray-300">
+                        Rp {product.price ? product.price.toFixed(2) : "N/A"}
+                      </p>
+                      <button
+                        onClick={(e) => handleAddToCart(product, e)}
+                        className="mt-3 px-4 py-2 bg-lightOrange text-white text-sm font-medium rounded-md hover:bg-darkOrange transition-all duration-500"
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </main>
+          </div>
+        </div>
+      )}
+      <Footer />
     </div>
   );
 };
