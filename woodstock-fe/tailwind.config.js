@@ -10,8 +10,8 @@ export default {
       boxShadow: {
         'text-shadow': '2px 2px 4px rgba(0, 0, 0, 0.5)',
       },
-      fontFamily:{
-        title:["Koulen", "sans-serif"]
+      fontFamily: {
+        title: ["Koulen", "sans-serif"],
       },
       colors: {
         darkwood: '#0F0A01',
@@ -29,18 +29,9 @@ export default {
         black4: '#202020',
         white1: '#DDDDDD',
         white2: '#EEEEEE',
-        brokenWhite: '#FEFFE0'
+        brokenWhite: '#FEFFE0',
       },
     },
   },
-  plugins: [
-    require('tailwindcss-text-stroke'),
-    function ({ addUtilities }) {
-      addUtilities({
-        '.text-shadow': {
-          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-        },
-      });
-    },
-  ],
-}
+  plugins: [],
+};
