@@ -161,8 +161,8 @@ const Marketplace = () => {
                     key={category}
                     onClick={() => setSelectedCategory(category)}
                     className={`cursor-pointer text-lg py-2 ${selectedCategory === category
-                        ? "font-bold text-lightOrange"
-                        : "text-black dark:text-gray-300"
+                      ? "font-bold text-lightOrange"
+                      : "text-black dark:text-gray-300"
                       } hover:text-lightGreen transition-all duration-300 text-sm sm:text-xl`}
                   >
                     {category}
@@ -187,6 +187,15 @@ const Marketplace = () => {
               </div>
             </aside>
             <main id="our-products" className="flex-grow bg-white1 dark:bg-black4 p-6 ease-in-out transition-all duration-500">
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Search for a tree..."
+                  className="w-full p-3 rounded-md bg-white dark:bg-black3 text-black dark:text-white border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-lightGreen"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
               <div className="text-2xl font-title mb-5 text-black dark:text-white">Our Products</div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                 {sortedProducts.map((product) => (
